@@ -1,5 +1,7 @@
-import { Document } from 'mongoose';
+import { Document, ObjectId } from 'mongoose';
 
 export type BaseDocument = BaseSchema & Document;
 
-export class BaseSchema {}
+export class BaseSchema {
+    _id: ObjectId;
+}

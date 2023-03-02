@@ -12,6 +12,9 @@ import { LoggingModule } from '@shared/modules/loggers/logger.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MODULES } from './modules';
+import { RequestContextModule } from 'nestjs-request-context';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ContextInterceptor } from 'infra/application/context/ContextInterceptor';
 
 @Module({
   imports: [
@@ -19,6 +22,7 @@ import { MODULES } from './modules';
     DatabaseModule,
     LoggingModule,
     ConsoleModule,
+    RequestContextModule,
     MulterModule.register({
       storage: memoryStorage(),
     }),
@@ -26,6 +30,12 @@ import { MODULES } from './modules';
     ...MODULES,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ContextInterceptor,
+    },
+  ],
 })
 export class AppModule {}

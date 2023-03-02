@@ -13,7 +13,6 @@ export class ArticleSagas {
       ofType(ArticleCreatedEvent),
       delay(1000),
       map((event) => {
-        console.log('sagas');
         return new SagaCommand(event.articleDto);
       }),
     );

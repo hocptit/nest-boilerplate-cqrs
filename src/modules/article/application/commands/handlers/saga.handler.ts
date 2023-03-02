@@ -9,6 +9,5 @@ export class SagaHandler implements ICommandHandler<SagaCommand> {
   constructor() {} // private readonly publisher: EventPublisher, // private readonly articleRepository: ArticleRepository,
 
   async execute(command: SagaCommand) {
-    console.log(`SagaHandler: ${command}`);
   }
 }

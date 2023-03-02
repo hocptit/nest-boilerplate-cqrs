@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Appender, configure, getLogger, Layout } from 'log4js';
+import { Appender, configure, getLogger, Layout, Logger } from 'log4js';
 import { ConfigService } from '@nestjs/config';
 import { EEnvKey } from '@constants/env.constant';
+import { RequestContextService } from 'infra/application/context/AppRequestContext';
 
 const layouts: Record<string, Layout> = {
   console: {
@@ -102,4 +103,20 @@ export class LoggerService {
     default: getLogger('default'),
     access: this._access(),
   };
+}
+
+export class LoggerWithContext {
+  constructor(protected logger: Logger) {}
+  info(...args: any[]) {
+    this.logger.info(`[${RequestContextService.getRequestId()}]`, ...args);
+  }
+  debug(...args: any[]) {
+    this.logger.debug(`[${RequestContextService.getRequestId()}]`, ...args);
+  }
+  error(...args: any[]) {
+    this.logger.error(`[${RequestContextService.getRequestId()}]`, ...args);
+  }
+  warn(...args: any[]) {
+    this.logger.warn(`[${RequestContextService.getRequestId()}]`, ...args);
+  }
 }

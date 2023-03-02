@@ -1,10 +1,9 @@
 import { Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
 
 import { Prop } from 'infra/swagger';
-import { BaseSchema } from '@shared/models/base.entity';
+import { BaseDocument, BaseSchema } from '@shared/models/base.entity';
 
-export type ArticleDocument = Article & Document;
+export type ArticleDocument = Article & BaseDocument;
 
 @Schema({
   timestamps: {

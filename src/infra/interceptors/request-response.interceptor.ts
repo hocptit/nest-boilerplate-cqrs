@@ -9,6 +9,7 @@ import { Response } from 'express';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
+import { RequestContextService } from 'infra/application/context/AppRequestContext';
 
 export const defaultResponse: IResponse<[]> = {
   success: true,
@@ -27,6 +28,7 @@ export interface IResponse<T> {
   message?: string | null;
   success?: boolean;
   validatorErrors?: any[];
+  requestId?: string;
 }
 export function createResponse<T>(data: any): IResponse<T> {
   return {
@@ -37,6 +39,7 @@ export function createResponse<T>(data: any): IResponse<T> {
       : { timestamp: new Date() },
     success: true,
     message: data?.message ? data?.message : '',
+    requestId: RequestContextService.getRequestId(),
   };
 }
 @Injectable()
@@ -50,7 +53,12 @@ export class ResponseTransformInterceptor<T>
     next: CallHandler,
   ): Observable<IResponse<T>> {
     const request = context.switchToHttp().getRequest();
-    this.logger.info(request.headers, request.query, request.params);
+    this.logger.info(
+      `[${RequestContextService.getRequestId()}]`,
+      request.headers,
+      request.query,
+      request.params,
+    );
     //todo: optimize logger body hidden password
     try {
       let body = request?.body;
@@ -60,7 +68,11 @@ export class ResponseTransformInterceptor<T>
           this.logger.info(`Hidden password`);
           delete body.password;
         }
-        this.logger.info(`Body: `, body);
+        this.logger.info(
+          `[${RequestContextService.getRequestId()}]`,
+          `Body: `,
+          body,
+        );
       }
     } catch (e) {}
     return next.handle().pipe(

@@ -3,27 +3,33 @@ import { CreateArticleCommand } from '../impl/create-article.command';
 import ArticleRepository from 'models/repositories/Article.repository';
 import { ArticleRoot } from '@modules/article/domain/aggregate_root/ArticleRoot';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
+import { BaseCommandHandler } from '@shared/cqrs/commands/command-handler.base';
+import { RequestContextService } from 'infra/application/context/AppRequestContext';
 
 @CommandHandler(CreateArticleCommand)
 export class CreateArticleHandler
+  extends BaseCommandHandler
   implements ICommandHandler<CreateArticleCommand>
 {
   constructor(
-    private readonly articleRepository: ArticleRepository,
-    private readonly publisher: EventPublisher,
-    private loggerService: LoggerService,
-  ) {}
-  private logger = this.loggerService.getLogger('template');
+    protected readonly articleRepository: ArticleRepository,
+    protected readonly publisher: EventPublisher,
+    protected loggerService: LoggerService,
+  ) {
+    super(publisher, loggerService, CreateArticleHandler.name);
+  }
   async execute(command: CreateArticleCommand) {
     const { articleDto } = command;
     const articleCreated =
       await this.articleRepository.articleDocumentModel.create(articleDto);
-    const articleRoot = new ArticleRoot(articleCreated._id).setData(
+    const articleRoot = this.getAggregateRoot(
+      new ArticleRoot(),
       articleCreated,
     );
-    const article = this.publisher.mergeObjectContext(articleRoot);
-    article.createdArticle();
-    article.commit();
+    articleRoot.createdArticle();
+    this.logger.warn('This is log', 'GOOO');
+    articleRoot.commit();
+
     return articleCreated;
   }
 }

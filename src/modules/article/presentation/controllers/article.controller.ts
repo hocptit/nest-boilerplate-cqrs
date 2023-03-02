@@ -10,7 +10,6 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ArticlesService } from '../../article.service';
-import { v4 as uuid } from 'uuid';
 import { ArticleDocument } from '@models/schemas/Article.schema';
 import { CreateArticleDto } from '../../dtos/CreateArticle.dto';
 

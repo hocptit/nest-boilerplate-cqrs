@@ -17,7 +17,6 @@ export class ArticlesService {
       CreateArticleCommand,
       ArticleDocument
     >(new CreateArticleCommand(dto));
-    console.log('data', data);
     return data
   }
 
