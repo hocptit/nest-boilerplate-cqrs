@@ -3,15 +3,12 @@ import {
   Post,
   Body,
   Get,
-  Put,
-  Param,
-  Delete,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ArticlesService } from '../../article.service';
+import { ArticlesService } from '../services/article.service';
 import { ArticleDocument } from '@models/schemas/Article.schema';
-import { CreateArticleDto } from '../../dtos/CreateArticle.dto';
+import { CreateArticleDto } from '../dtos/CreateArticle.dto';
 
 @Controller('article')
 @UsePipes(new ValidationPipe())

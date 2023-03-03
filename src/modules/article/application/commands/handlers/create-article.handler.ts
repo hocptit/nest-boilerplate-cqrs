@@ -4,7 +4,6 @@ import ArticleRepository from 'models/repositories/Article.repository';
 import { ArticleRoot } from '@modules/article/domain/aggregate_root/ArticleRoot';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
 import { BaseCommandHandler } from '@shared/cqrs/commands/command-handler.base';
-import { RequestContextService } from 'infra/application/context/AppRequestContext';
 
 @CommandHandler(CreateArticleCommand)
 export class CreateArticleHandler
@@ -29,7 +28,6 @@ export class CreateArticleHandler
     articleRoot.createdArticle();
     this.logger.warn('This is log', 'GOOO');
     articleRoot.commit();
-
     return articleCreated;
   }
 }

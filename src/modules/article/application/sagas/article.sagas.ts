@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ICommand, ofType, Saga } from '@nestjs/cqrs';
 import { Observable } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
-import { ArticleCreatedEvent } from '../../domain/events/impl/article-created.event';
+import { ArticleCreatedEvent } from '../events/impl/article-created.event';
 import { SagaCommand } from '../commands/impl/saga.command';
 
 @Injectable()

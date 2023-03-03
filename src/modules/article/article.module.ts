@@ -2,15 +2,15 @@ import { Module, OnModuleInit } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CommandHandlers } from './application/commands/handlers';
-import { ArticleController } from './presentation/controllers/article.controller';
+import { ArticleController } from './controllers/article.controller';
 import ArticleRepository from 'models/repositories/Article.repository';
-import { ArticlesService } from './article.service';
+import { ArticlesService } from './services/article.service';
 import { QueryHandlers } from './application/queries/handlers';
 import {
   ArticleSchema,
   Article,
 } from '@models/schemas/Article.schema';
-import { EventHandlers } from './domain/events/handlers/index';
+import { EventHandlers } from './application/events/handlers/index';
 import { ArticleSagas } from './application/sagas/article.sagas';
 
 @Module({
