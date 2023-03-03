@@ -10,6 +10,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
 import { RequestContextService } from 'infra/application/context/AppRequestContext';
+import { EEnvKey } from '@constants/env.constant';
+import { ConfigService } from '@nestjs/config';
 
 export const defaultResponse: IResponse<[]> = {
   success: true,
@@ -46,35 +48,40 @@ export function createResponse<T>(data: any): IResponse<T> {
 export class ResponseTransformInterceptor<T>
   implements NestInterceptor<T, IResponse<T>>
 {
-  constructor(private readonly loggingService: LoggerService) {}
+  constructor(private readonly loggingService: LoggerService, private readonly configService: ConfigService) {}
   private logger = this.loggingService.getLogger('Request');
   intercept(
     context: ExecutionContext,
     next: CallHandler,
   ): Observable<IResponse<T>> {
-    const request = context.switchToHttp().getRequest();
-    this.logger.info(
-      `[${RequestContextService.getRequestId()}]`,
-      request.headers,
-      request.query,
-      request.params,
-    );
-    //todo: optimize logger body hidden password
-    try {
-      let body = request?.body;
-      if (body && body instanceof Object) {
-        body = JSON.parse(JSON.stringify(request?.body));
-        if (body?.password) {
-          this.logger.info(`Hidden password`);
-          delete body.password;
+    const logLevel = this.configService.get(EEnvKey.LOG_LEVEL);
+    if(logLevel === 'debug'){
+      const request = context.switchToHttp().getRequest();
+      this.logger.info(
+        `[${RequestContextService.getRequestId()}]`,
+        request.headers,
+        request.query,
+        request.params,
+      );
+      //todo: optimize logger body hidden password
+      try {
+        let body = request?.body;
+        if (body && body instanceof Object) {
+          body = JSON.parse(JSON.stringify(request?.body));
+          if (body?.password) {
+            this.logger.info(`Hidden password`);
+            delete body.password;
+          }
+          this.logger.info(
+            `[${RequestContextService.getRequestId()}]`,
+            `Body: `,
+            body,
+          );
         }
-        this.logger.info(
-          `[${RequestContextService.getRequestId()}]`,
-          `Body: `,
-          body,
-        );
+      } catch (e) {
+        throw e;
       }
-    } catch (e) {}
+    }
     return next.handle().pipe(
       map((data) => {
         const ctx = context.switchToHttp();

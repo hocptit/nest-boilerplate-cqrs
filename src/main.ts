@@ -20,7 +20,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const loggingService = app.get(LoggerService);
   const logger = loggingService.getLogger('Main');
-  app.useGlobalInterceptors(new ResponseTransformInterceptor(loggingService));
+  app.useGlobalInterceptors(new ResponseTransformInterceptor(loggingService, configService));
   app.useGlobalFilters(new UnknownExceptionsFilter(loggingService));
   app.useGlobalFilters(new HttpExceptionFilter(loggingService));
 

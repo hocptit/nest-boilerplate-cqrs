@@ -1,3 +1,3 @@
-import { ArticleCreatedHandler } from './article-created.handler';
+import { ArticleCreatedEventHandler } from './article-created.handler';
 
-export const EventHandlers = [ArticleCreatedHandler];
+export const EventHandlers = [ArticleCreatedEventHandler];

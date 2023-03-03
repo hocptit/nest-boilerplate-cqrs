@@ -25,8 +25,8 @@ export class CreateArticleHandler
       new ArticleRoot(),
       articleCreated,
     );
+    // this.logger.warn('This is log', 'GOOO');
     articleRoot.createdArticle();
-    this.logger.warn('This is log', 'GOOO');
     articleRoot.commit();
     return articleCreated;
   }

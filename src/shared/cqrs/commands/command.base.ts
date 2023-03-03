@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export type CommandProps<T> = Omit<T, 'id' | 'metadata'> & Partial<Command>;
+export type CommandProps<T> = Omit<T, 'id' | 'metadata'> & Partial<BaseCommand>;
 
 export class CommandMetadata {
   /** ID for correlation purposes (for commands that
@@ -22,7 +22,7 @@ export class CommandMetadata {
   readonly timestamp: number;
 }
 
-export class Command {
+export class BaseCommand {
   /**
    * Command id, in case if we want to save it
    * for auditing purposes and create a correlation/causation chain
