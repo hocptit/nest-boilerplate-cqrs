@@ -58,6 +58,14 @@ $ yarn run test:e2e
 $ yarn run test:cov
 ```
 
+Command:
+  Command → Event → Command.
+Entities:
+  Contain Domain business logic. Avoid having business logic in your services when possible
+Event:
+  Event is async
+  
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).

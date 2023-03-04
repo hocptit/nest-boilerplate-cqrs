@@ -1,6 +1,6 @@
 import { IEventHandler, EventsHandler } from '@nestjs/cqrs';
 import { ArticleCreatedEvent } from '../impl/article-created.event';
-import ArticleRepository from '@models/repositories/Article.repository';
+import ArticleRepository from '@modules/article/domain/models/repositories/Article.repository';
 import { BaseEventHandler } from '../../../../../shared/cqrs/events/event-handler.base';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
 
@@ -17,6 +17,6 @@ export class ArticleCreatedEventHandler
   }
 
   async handle(event: ArticleCreatedEvent) {
-    // this.logger.info('ArticleCreatedEventHandler');
+    this.logger.info('ArticleCreatedEventHandler');
   }
 }

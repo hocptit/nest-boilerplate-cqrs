@@ -3,7 +3,7 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { FindManyArticlesQuery } from '../application/queries/impl/find-many-article.query';
 import { CreateArticleDto } from '../dtos/CreateArticle.dto';
 import { CreateArticleCommand } from '../application/commands/impl/create-article.command';
-import { ArticleDocument } from '@models/schemas/Article.schema';
+import { ArticleDocument } from '@modules/article/domain/models/schemas/Article.schema';
 
 @Injectable()
 export class ArticlesService {

@@ -3,13 +3,13 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CommandHandlers } from './application/commands/handlers';
 import { ArticleController } from './controllers/article.controller';
-import ArticleRepository from 'models/repositories/Article.repository';
+import ArticleRepository from 'modules/article/domain/models/repositories/Article.repository';
 import { ArticlesService } from './services/article.service';
 import { QueryHandlers } from './application/queries/handlers';
 import {
   ArticleSchema,
   Article,
-} from '@models/schemas/Article.schema';
+} from '@modules/article/domain/models/schemas/Article.schema';
 import { EventHandlers } from './application/events/handlers/index';
 import { ArticleSagas } from './application/sagas/article.sagas';
 

@@ -1,6 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { FindManyArticlesQuery } from '../impl/find-many-article.query';
-import ArticleRepository from 'models/repositories/Article.repository';
+import ArticleRepository from 'modules/article/domain/models/repositories/Article.repository';
 import { BaseQueryHandler } from '@shared/cqrs/queries/query-handler.base';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
 
