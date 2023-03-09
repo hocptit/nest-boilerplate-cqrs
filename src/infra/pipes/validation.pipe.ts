@@ -1,4 +1,3 @@
-
 import { HttpStatus, ValidationPipe } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
 
@@ -16,7 +15,7 @@ export class BodyValidationPipe extends ValidationPipe {
             errs,
           )}`,
           statusCode: HttpStatus.BAD_REQUEST,
-          validatorErrors: this.getPropertyAndContraints(errs),
+          validatorErrors: this.getPropertyAndConstraints(errs),
         });
       },
     });
@@ -35,17 +34,17 @@ export class BodyValidationPipe extends ValidationPipe {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  getPropertyAndContraints(errs: ValidationError[]): any[] {
+  getPropertyAndConstraints(errs: ValidationError[]): any[] {
     const details = [];
     errs.forEach((e) => {
       if (e.children && e.children.length > 0) {
-        this.getPropertyAndContraints(e.children).forEach((e) =>
+        this.getPropertyAndConstraints(e.children).forEach((e) =>
           details.push(e),
         );
       } else {
         details.push({
           property: e.property,
-          contraints: Object.values(e.constraints),
+          constraints: Object.values(e.constraints),
         });
       }
     });

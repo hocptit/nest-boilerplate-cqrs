@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { FindManyArticlesQuery } from '../application/queries/impl/find-many-article.query';
+import { FindManyArticlesQuery } from '../cqrs/queries/impl/find-many-article.query';
 import { CreateArticleDto } from '../dtos/CreateArticle.dto';
-import { CreateArticleCommand } from '../application/commands/impl/create-article.command';
+import { CreateArticleCommand } from '../cqrs/commands/impl/create-article.command';
 import { ArticleDocument } from '@modules/article/domain/models/schemas/Article.schema';
 
 @Injectable()

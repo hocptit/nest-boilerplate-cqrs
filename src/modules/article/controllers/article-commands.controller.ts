@@ -12,7 +12,7 @@ import { CreateArticleDto } from '../dtos/CreateArticle.dto';
 
 @Controller('article')
 @UsePipes(new ValidationPipe())
-export class ArticleController {
+export class ArticleCommandsController {
   constructor(private readonly ordersService: ArticlesService) {}
 
   @Post()
@@ -20,10 +20,5 @@ export class ArticleController {
     @Body() articleDto: CreateArticleDto,
   ): Promise<ArticleDocument> {
     return this.ordersService.createArticle(articleDto);
-  }
-
-  @Get()
-  async findArticles() {
-    return this.ordersService.findAll();
   }
 }

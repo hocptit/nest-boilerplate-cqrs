@@ -1,17 +1,18 @@
 import { Module, OnModuleInit } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
-import { CommandHandlers } from './application/commands/handlers';
-import { ArticleController } from './controllers/article.controller';
+import { CommandHandlers } from './cqrs/commands/handlers';
+import { ArticleCommandsController } from './controllers';
 import ArticleRepository from 'modules/article/domain/models/repositories/Article.repository';
 import { ArticlesService } from './services/article.service';
-import { QueryHandlers } from './application/queries/handlers';
+import { QueryHandlers } from './cqrs/queries/handlers';
 import {
   ArticleSchema,
   Article,
 } from '@modules/article/domain/models/schemas/Article.schema';
-import { EventHandlers } from './application/events/handlers/index';
-import { ArticleSagas } from './application/sagas/article.sagas';
+import { EventHandlers } from './cqrs/events/handlers/index';
+import { ArticleSagas } from './cqrs/sagas/article.sagas';
+import { ArticleQueriesController } from './controllers';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { ArticleSagas } from './application/sagas/article.sagas';
       },
     ]),
   ],
-  controllers: [ArticleController],
+  controllers: [ArticleCommandsController, ArticleQueriesController],
   providers: [
     ArticleRepository,
     ArticlesService,

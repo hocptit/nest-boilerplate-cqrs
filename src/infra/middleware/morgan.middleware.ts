@@ -15,7 +15,6 @@ morgan.token('reqId', (req) => {
   return `[${req?.requestId}]`;
 });
 
-
 morgan.format('custom', (tokens, req, res) => {
   // tokens['remote-addr-cus'] = () => tokens['remote-addr'](req).padStart(29, ' ').substr(0, 29);
   // const frm = `ACCESS :date[iso] :remote-addr-cus | :user :method :url :status - :response-time ms`;

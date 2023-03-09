@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { RequestContextService } from 'infra/application/context/AppRequestContext';
+import { RequestContextService } from 'infra/context/AppRequestContext';
 
 import {
   defaultResponse,

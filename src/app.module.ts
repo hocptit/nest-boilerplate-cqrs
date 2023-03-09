@@ -14,7 +14,7 @@ import { AppService } from './app.service';
 import { MODULES } from './modules';
 import { RequestContextModule } from 'nestjs-request-context';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { ContextInterceptor } from 'infra/application/context/ContextInterceptor';
+import { ContextInterceptor } from 'infra/context/ContextInterceptor';
 
 @Module({
   imports: [

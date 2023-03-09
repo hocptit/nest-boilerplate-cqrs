@@ -9,7 +9,7 @@ import { Response } from 'express';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
-import { RequestContextService } from 'infra/application/context/AppRequestContext';
+import { RequestContextService } from 'infra/context/AppRequestContext';
 import { EEnvKey } from '@constants/env.constant';
 import { ConfigService } from '@nestjs/config';
 

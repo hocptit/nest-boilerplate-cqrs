@@ -20,14 +20,18 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const loggingService = app.get(LoggerService);
   const logger = loggingService.getLogger('Main');
-  app.useGlobalInterceptors(new ResponseTransformInterceptor(loggingService, configService));
+  app.useGlobalInterceptors(
+    new ResponseTransformInterceptor(loggingService, configService),
+  );
   app.useGlobalFilters(new UnknownExceptionsFilter(loggingService));
   app.useGlobalFilters(new HttpExceptionFilter(loggingService));
 
   app.useGlobalPipes(new BodyValidationPipe());
   app.setGlobalPrefix(configService.get<string>(EEnvKey.GLOBAL_PREFIX));
   app.enableCors();
-  app.use(useMorgan(loggingService.logger.access));
+  if (configService.get(EEnvKey.LOG_LEVEL) === 'debug') {
+    app.use(useMorgan(loggingService.logger.access));
+  }
   initSwagger(app, configService);
   app.use('/assets', express.static('assets'));
   await app.listen(configService.get<number>(EEnvKey.PORT) || 3000);

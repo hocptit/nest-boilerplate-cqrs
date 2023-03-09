@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Appender, configure, getLogger, Layout, Logger } from 'log4js';
 import { ConfigService } from '@nestjs/config';
 import { EEnvKey } from '@constants/env.constant';
-import { RequestContextService } from 'infra/application/context/AppRequestContext';
+import { RequestContextService } from 'infra/context/AppRequestContext';
 
 const layouts: Record<string, Layout> = {
   console: {

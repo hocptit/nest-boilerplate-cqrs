@@ -1,4 +1,4 @@
-import { RequestContextService } from 'infra/application/context/AppRequestContext';
+import { RequestContextService } from 'infra/context/AppRequestContext';
 import { v4 } from 'uuid';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
