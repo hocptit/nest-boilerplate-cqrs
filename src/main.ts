@@ -6,7 +6,6 @@ import express from 'express';
 import { EEnvKey } from '@constants/env.constant';
 
 import { ResponseTransformInterceptor } from 'infra/interceptors/request-response.interceptor';
-import { useMorgan } from 'infra/middleware';
 import { HttpExceptionFilter } from 'infra/middleware/http-exception.filter';
 import { UnknownExceptionsFilter } from 'infra/middleware/unknown-exceptions.filter';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
@@ -29,9 +28,6 @@ async function bootstrap() {
   app.useGlobalPipes(new BodyValidationPipe());
   app.setGlobalPrefix(configService.get<string>(EEnvKey.GLOBAL_PREFIX));
   app.enableCors();
-  if (configService.get(EEnvKey.LOG_LEVEL) === 'debug') {
-    app.use(useMorgan(loggingService.logger.access));
-  }
   initSwagger(app, configService);
   app.use('/assets', express.static('assets'));
   await app.listen(configService.get<number>(EEnvKey.PORT) || 3000);

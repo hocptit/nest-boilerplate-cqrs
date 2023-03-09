@@ -1,1 +1,1 @@
-export * from 'infra/middleware/morgan.middleware';
+export * from 'infra/middleware/http-exception.filter';

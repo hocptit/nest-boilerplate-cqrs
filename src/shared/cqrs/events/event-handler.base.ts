@@ -1,13 +1,11 @@
 import {
   LoggerService,
-  LoggerWithContext,
+  LoggerPort,
 } from '@shared/modules/loggers/logger.service';
 
 export class BaseEventHandler {
-  protected logger: LoggerWithContext;
+  protected logger: LoggerPort;
   constructor(protected loggerService: LoggerService, eventName: string) {
-    this.logger = new LoggerWithContext(
-      this.loggerService.getLogger(eventName),
-    );
+    this.logger = new LoggerPort(this.loggerService.getLogger(eventName));
   }
 }

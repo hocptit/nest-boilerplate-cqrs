@@ -1,4 +1,3 @@
-import { RequestContextService } from 'infra/context/AppRequestContext';
 import { v4 } from 'uuid';
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
@@ -32,10 +31,9 @@ export class BaseCommand {
   readonly metadata: CommandMetadata;
 
   constructor(props: CommandProps<unknown>) {
-    const ctx = RequestContextService.getContext();
     this.id = props.id || v4();
     this.metadata = {
-      correlationId: props?.metadata?.correlationId || ctx.requestId,
+      correlationId: props?.metadata?.correlationId,
       timestamp: props?.metadata?.timestamp || Date.now(),
     };
   }

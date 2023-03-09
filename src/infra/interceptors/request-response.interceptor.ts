@@ -9,7 +9,6 @@ import { Response } from 'express';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
-import { RequestContextService } from 'infra/context/AppRequestContext';
 import { EEnvKey } from '@constants/env.constant';
 import { ConfigService } from '@nestjs/config';
 
@@ -41,7 +40,6 @@ export function createResponse<T>(data: any): IResponse<T> {
       : { timestamp: new Date() },
     success: true,
     message: data?.message ? data?.message : '',
-    requestId: RequestContextService.getRequestId(),
   };
 }
 @Injectable()
@@ -58,7 +56,6 @@ export class ResponseTransformInterceptor<T>
     if(logLevel === 'debug'){
       const request = context.switchToHttp().getRequest();
       this.logger.info(
-        `[${RequestContextService.getRequestId()}]`,
         request.headers,
         request.query,
         request.params,
@@ -73,7 +70,6 @@ export class ResponseTransformInterceptor<T>
             delete body.password;
           }
           this.logger.info(
-            `[${RequestContextService.getRequestId()}]`,
             `Body: `,
             body,
           );

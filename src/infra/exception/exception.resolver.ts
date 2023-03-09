@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { RequestContextService } from 'infra/context/AppRequestContext';
 
 import {
   defaultResponse,
@@ -13,7 +12,6 @@ export abstract class BaseException<TData> extends HttpException {
       statusCode: partial?.statusCode ? partial.statusCode : statusCode,
       message: '',
       ...partial,
-      requestId: RequestContextService.getRequestId(),
     };
     payload.success = payload.statusCode < 400;
     super(payload, statusCode);

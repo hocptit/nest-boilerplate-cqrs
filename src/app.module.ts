@@ -13,8 +13,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MODULES } from './modules';
 import { RequestContextModule } from 'nestjs-request-context';
-import { APP_INTERCEPTOR } from '@nestjs/core';
-import { ContextInterceptor } from 'infra/context/ContextInterceptor';
 
 @Module({
   imports: [
@@ -32,10 +30,6 @@ import { ContextInterceptor } from 'infra/context/ContextInterceptor';
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: ContextInterceptor,
-    },
   ],
 })
 export class AppModule {}

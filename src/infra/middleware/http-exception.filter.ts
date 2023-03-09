@@ -20,10 +20,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
-    // const request = ctx.getRequest();
-    // const status = exception.getStatus();
     let excResponse = exception.getResponse() as IResponse<any> | any;
-    // this.logger.info(request.headers, request.query, request.params, request.body);
     this.logger.warn(excResponse);
     if (
       typeof excResponse !== 'object' ||
