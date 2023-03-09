@@ -1,5 +1,4 @@
 import { Guard } from '../guard';
-import { convertPropsToObject } from '../utils';
 import { BadRequestException } from '../../infra/exception';
 
 /**
@@ -45,10 +44,6 @@ export abstract class ValueObject<T> {
     if (this.isDomainPrimitive(this.props)) {
       return this.props.value;
     }
-
-    const propsCopy = convertPropsToObject(this.props);
-
-    return Object.freeze(propsCopy);
   }
 
   private checkIfEmpty(props: ValueObjectProps<T>): void {
