@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 
-import * as exc from 'infra/exception';
+import * as exc from '@shared/exception';
 import { IResponse } from 'infra/interceptors/request-response.interceptor';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
 

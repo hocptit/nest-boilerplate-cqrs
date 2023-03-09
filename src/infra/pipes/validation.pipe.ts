@@ -1,7 +1,7 @@
 import { HttpStatus, ValidationPipe } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
 
-import { BadRequestException } from 'infra/exception';
+import { BadRequestException } from '@shared/exception';
 
 export class BodyValidationPipe extends ValidationPipe {
   constructor() {

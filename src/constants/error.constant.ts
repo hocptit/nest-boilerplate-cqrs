@@ -2,7 +2,7 @@ export const ErrorConstant = Object.freeze({
   DEFAULT: {
     FAILED: 'FAILED',
   },
-  TEMPLATE: {
+  ARTICLE: {
     NOT_FOUND: 'NOT_FOUND',
   },
 });

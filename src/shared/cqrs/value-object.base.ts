@@ -1,5 +1,5 @@
 import { Guard } from '../guard';
-import { BadRequestException } from '../../infra/exception';
+import { BadRequestException } from '../exception';
 
 /**
  * Domain Primitive is an object that contains only a single value

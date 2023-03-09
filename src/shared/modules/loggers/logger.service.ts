@@ -11,24 +11,7 @@ const layouts: Record<string, Layout> = {
   dateFile: {
     type: 'pattern',
     pattern: '%-6p %d [%c] | %m',
-  },
-  access: {
-    type: 'pattern',
-    pattern: '%[%-6p %d [%c] [address:%x{remoteAddr}] %x{access}%]',
-    tokens: {
-      remoteAddr: function (logEvent) {
-        let remoteAddr = logEvent.data.toString().split(' ', 1).pop();
-        remoteAddr = remoteAddr.replace(/^.*:/, '');
-        remoteAddr = remoteAddr === '1' ? '127.0.0.1' : remoteAddr;
-        return remoteAddr;
-      },
-      access: function (logEvent) {
-        const [, ...data] = logEvent.data.toString().split(' ');
-        data.pop();
-        return data.join(' ');
-      },
-    },
-  },
+  }
 };
 
 const appenders: Record<string, Appender> = {
@@ -41,10 +24,6 @@ const appenders: Record<string, Appender> = {
     filename: 'logs/out.log',
     pattern: '-yyyy-MM-dd',
     layout: layouts.dateFile,
-  },
-  access: {
-    type: 'console',
-    layout: layouts.access,
   },
   dateFileAccess: {
     type: 'dateFile',
@@ -80,27 +59,14 @@ export class LoggerService {
           level: level,
           enableCallStack: true,
         },
-        access: {
-          appenders: isWriteLog ? ['access', 'dateFileAccess'] : ['access'],
-          level: 'info',
-          enableCallStack: true,
-        },
       },
     });
   }
 
   getLogger = getLogger;
 
-  private _access = () => {
-    const logger = this.getLogger('access');
-    return {
-      write: logger.info.bind(logger),
-    };
-  };
-
   logger = {
     default: getLogger('default'),
-    access: this._access(),
   };
 }
 

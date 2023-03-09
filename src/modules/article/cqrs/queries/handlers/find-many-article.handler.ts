@@ -3,6 +3,8 @@ import { FindManyArticlesQuery } from '../impl/find-many-article.query';
 import ArticleRepository from 'modules/article/domain/models/repositories/Article.repository';
 import { BaseQueryHandler } from '@shared/cqrs/queries/query-handler.base';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
+import { BadRequestException } from '@shared/exception';
+import { ErrorConstant } from '../../../../../constants/error.constant';
 
 @QueryHandler(FindManyArticlesQuery)
 export class FindManyArticlesQueryHandler
@@ -18,6 +20,9 @@ export class FindManyArticlesQueryHandler
 
   async execute(query: FindManyArticlesQuery) {
     this.logger.info('FindManyArticlesHandler');
+    throw new BadRequestException({
+      message: ErrorConstant.ARTICLE.NOT_FOUND
+    });
     return this.articleRepository.articleDocumentModel.find();
   }
 }
