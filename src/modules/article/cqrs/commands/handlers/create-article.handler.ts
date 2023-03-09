@@ -1,9 +1,10 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 import { CreateArticleCommand } from '../impl/create-article.command';
 import ArticleRepository from 'modules/article/domain/models/repositories/Article.repository';
-import { ArticleRoot } from '@modules/article/domain/aggregate_root/ArticleRoot';
+import { ArticleEntity } from '@modules/article/domain/aggregate_root/ArticleEntity';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
 import { BaseCommandHandler } from '@shared/cqrs/commands/command-handler.base';
+import { ArticleDocument } from '../../../domain/models/schemas/Article.schema';
 
 @CommandHandler(CreateArticleCommand)
 export class CreateArticleHandler
@@ -19,15 +20,12 @@ export class CreateArticleHandler
   }
   async execute(command: CreateArticleCommand) {
     const { articleDto } = command;
-    const articleCreated =
+    const articleCreated: ArticleDocument =
       await this.articleRepository.articleDocumentModel.create(articleDto);
-    const articleRoot = this.getAggregateRoot(
-      new ArticleRoot(),
-      articleCreated,
-    );
-    // this.logger.warn('This is log', 'GOOO');
-    articleRoot.createdArticle();
-    articleRoot.commit();
+      const articleEntity = this.articleRepository.mapper.toDomain(articleCreated)
+    this.logger.warn('This is log', 'GOOO');
+    articleEntity.createdArticle();
+    articleEntity.commit();
     return articleCreated;
   }
 }

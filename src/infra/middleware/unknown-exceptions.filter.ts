@@ -12,7 +12,7 @@ import { LoggerService } from '@shared/modules/loggers/logger.service';
 export class UnknownExceptionsFilter implements ExceptionFilter {
   constructor(private readonly loggingService: LoggerService) {}
 
-  private logger = this.loggingService.getLogger('unknown-exception');
+  private logger = this.loggingService.getLogger('internal-exception');
 
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
@@ -32,7 +32,7 @@ export class UnknownExceptionsFilter implements ExceptionFilter {
           ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             exception?.message
-          : 'unknown exception',
+          : 'internal exception',
       success: false,
     };
     response.status(defaultResponse.statusCode).json(defaultResponse);

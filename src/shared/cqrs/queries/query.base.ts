@@ -1,8 +1,8 @@
 /**
  * Base class for regular queries
  */
-export abstract class QueryBase {
-    //todo: add metadata
+export abstract class BaseQuery {
+  // todo: implement
 }
 
 

@@ -4,6 +4,8 @@
         "appenders",
         "cqrs",
         "dtos",
-        "nestjs"
+        "nestjs",
+        "rawbody",
+        "virtuals"
     ]
 }

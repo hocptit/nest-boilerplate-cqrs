@@ -1,1 +1,3 @@
-export class BaseEvent {}
+export class BaseEvent {
+    // todo: implement
+}

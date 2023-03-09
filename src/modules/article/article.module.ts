@@ -1,4 +1,4 @@
-import { Module, OnModuleInit } from '@nestjs/common';
+import { Module, OnModuleInit, Provider } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CommandHandlers } from './cqrs/commands/handlers';
@@ -13,7 +13,9 @@ import {
 import { EventHandlers } from './cqrs/events/handlers/index';
 import { ArticleSagas } from './cqrs/sagas/article.sagas';
 import { ArticleQueriesController } from './controllers';
+import { ArticleMapper } from './mappers/article.mapper';
 
+const mappers: Provider[] = [ArticleMapper];
 @Module({
   imports: [
     CqrsModule,
@@ -28,6 +30,7 @@ import { ArticleQueriesController } from './controllers';
   providers: [
     ArticleRepository,
     ArticlesService,
+    ...mappers,
     ...CommandHandlers,
     ...QueryHandlers,
     ...EventHandlers,

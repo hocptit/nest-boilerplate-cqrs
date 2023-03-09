@@ -3,8 +3,9 @@ import { FindManyArticlesQuery } from '../impl/find-many-article.query';
 import ArticleRepository from 'modules/article/domain/models/repositories/Article.repository';
 import { BaseQueryHandler } from '@shared/cqrs/queries/query-handler.base';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
-import { BadRequestException } from '@shared/exception';
-import { ErrorConstant } from '../../../../../constants/error.constant';
+import { ENotFoundArticle } from '../../../domain/article.error';
+import { ArticleDocument } from '../../../domain/models/schemas/Article.schema';
+import { Err, Result, Ok } from 'oxide.ts';
 
 @QueryHandler(FindManyArticlesQuery)
 export class FindManyArticlesQueryHandler
@@ -18,11 +19,11 @@ export class FindManyArticlesQueryHandler
     super(loggerService, FindManyArticlesQueryHandler.name);
   }
 
-  async execute(query: FindManyArticlesQuery) {
+  async execute(
+    query: FindManyArticlesQuery,
+  ): Promise<Result<ArticleDocument[], ENotFoundArticle>> {
     this.logger.info('FindManyArticlesHandler');
-    throw new BadRequestException({
-      message: ErrorConstant.ARTICLE.NOT_FOUND
-    });
-    return this.articleRepository.articleDocumentModel.find();
+    const data = await this.articleRepository.articleDocumentModel.find();
+    return Ok(data);
   }
 }

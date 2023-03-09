@@ -59,6 +59,7 @@ export class ResponseTransformInterceptor<T>
         request.headers,
         request.query,
         request.params,
+        request.url,
       );
       //todo: optimize logger body hidden password
       try {
@@ -69,10 +70,7 @@ export class ResponseTransformInterceptor<T>
             this.logger.info(`Hidden password`);
             delete body.password;
           }
-          this.logger.info(
-            `Body: `,
-            body,
-          );
+          this.logger.info(request.url, `Body: `, body);
         }
       } catch (e) {
         throw e;

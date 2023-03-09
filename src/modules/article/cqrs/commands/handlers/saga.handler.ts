@@ -1,7 +1,7 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 // import { CreateArticleCommand } from '../impl/create-article.command';
 // import ArticleRepository from '@models/repositories/Article.repository';
-// import { ArticleRoot } from '@models/schemas/ArticleRoot';
+// import { ArticleEntity } from '@models/schemas/ArticleRoot';
 import { SagaCommand } from '../impl/saga.command';
 
 @CommandHandler(SagaCommand)

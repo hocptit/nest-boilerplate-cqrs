@@ -21,7 +21,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     let excResponse = exception.getResponse() as IResponse<any> | any;
-    this.logger.warn(excResponse);
     if (
       typeof excResponse !== 'object' ||
       !excResponse.hasOwnProperty('success')

@@ -1,18 +1,18 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { ObjectId } from 'mongoose';
 
-export class BaseAggregateRoot<
-  TDocument = any & Document,
-> extends AggregateRoot {
-  protected document: TDocument;
-  protected id: ObjectId;
-  constructor(id?: ObjectId | undefined, document?: TDocument | undefined) {
+
+export type AggregateID = ObjectId;
+export class BaseAggregateRoot<TDocument = any & Document> extends AggregateRoot {
+  public document: TDocument;
+  protected id: AggregateID;
+  constructor(id?: AggregateID | undefined, document?: TDocument | undefined) {
     super();
     this.document = document;
     this.id = id;
   }
 
-  setId(id: ObjectId) {
+  setId(id: AggregateID) {
     this.id = id;
     return this;
   }
@@ -21,4 +21,5 @@ export class BaseAggregateRoot<
     this.document = document;
     return this;
   }
+
 }

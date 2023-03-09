@@ -3,6 +3,9 @@ export const ErrorConstant = Object.freeze({
     FAILED: 'FAILED',
   },
   ARTICLE: {
-    NOT_FOUND: 'NOT_FOUND',
+    NOT_FOUND_ARTICLE: {
+      MESSAGE: 'not found article',
+      CODE: '0001',
+    },
   },
 });
