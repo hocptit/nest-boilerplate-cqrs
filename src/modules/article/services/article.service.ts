@@ -8,8 +8,6 @@ import { Result, match, Ok } from 'oxide.ts';
 import { ENotFoundArticle } from '../domain/article.error';
 import { BadRequestException } from '@shared/exception';
 import { FindSingleArticleQuery } from '../cqrs/queries/impl/find-single-article.query';
-import { ObjectId } from 'mongoose';
-import { ObjectIDDto } from '@shared/dtos/ObjectID.dto';
 
 @Injectable()
 export class ArticlesService {

@@ -26,7 +26,7 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter(loggingService));
 
   app.useGlobalPipes(new BodyValidationPipe());
-  app.setGlobalPrefix(configService.get<string>(EEnvKey.GLOBAL_PREFIX));
+  app.setGlobalPrefix('api');
   app.enableCors();
   initSwagger(app, configService);
   app.use('/assets', express.static('assets'));

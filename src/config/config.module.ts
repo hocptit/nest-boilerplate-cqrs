@@ -13,7 +13,6 @@ import { EEnvKey } from '@constants/env.constant';
         // nestjs
         [EEnvKey.NODE_ENV]: Joi.string().valid('development', 'production'),
         [EEnvKey.PORT]: Joi.number().default(3000),
-        [EEnvKey.GLOBAL_PREFIX]: Joi.string(),
         [EEnvKey.SWAGGER_PATH]: Joi.string(),
       }),
       load: [],
