@@ -6,6 +6,7 @@ import { LoggerService } from '@shared/modules/loggers/logger.service';
 import { ENotFoundArticle } from '../../../domain/article.error';
 import { ArticleDocument } from '../../../domain/models/schemas/Article.schema';
 import { Result, Ok } from 'oxide.ts';
+import { FilterQuery } from 'mongoose';
 
 @QueryHandler(FindManyArticlesQuery)
 export class FindManyArticlesQueryHandler
@@ -23,7 +24,15 @@ export class FindManyArticlesQueryHandler
     query: FindManyArticlesQuery,
   ): Promise<Result<ArticleDocument[], ENotFoundArticle>> {
     this.logger.info('FindManyArticlesHandler');
-    const data = await this.articleRepository.articleDocumentModel.find();
+    const conditions: FilterQuery<ArticleDocument> = {};
+    if (query.listArticleDto.author) {
+      conditions.author = query.listArticleDto.author;
+    }
+    if (query.listArticleDto.content) {
+      conditions.$text =  {$search: query.listArticleDto.content}
+    }
+    const data = await this.articleRepository.articleDocumentModel.find(conditions);
+
     return Ok(data);
   }
 }

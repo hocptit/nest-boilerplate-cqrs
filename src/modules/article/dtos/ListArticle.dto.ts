@@ -14,5 +14,5 @@ export class ListArticleDto extends BaseQuery {
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
-  title: string;
+  content: string;
 }

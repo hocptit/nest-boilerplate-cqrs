@@ -12,6 +12,7 @@ export type ArticleDocument = ArticleSchema & BaseDocument;
   },
   versionKey: false,
   virtuals: true,
+  collection: 'article_schema',
 })
 export class ArticleSchema extends BaseSchema {
   @Prop({ default: 'This is content' })
