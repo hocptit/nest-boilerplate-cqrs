@@ -17,6 +17,7 @@ export class ArticleCreatedEventHandler
   }
 
   async handle(event: ArticleCreatedEvent) {
+    console.log(event);
     this.logger.info('ArticleCreatedEventHandler');
   }
 }

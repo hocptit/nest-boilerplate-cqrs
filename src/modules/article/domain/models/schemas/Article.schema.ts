@@ -3,7 +3,7 @@ import { Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Prop } from 'infra/swagger';
 import { BaseDocument, BaseSchema } from '@shared/models/base.entity';
 
-export type ArticleDocument = Article & BaseDocument;
+export type ArticleDocument = ArticleSchema & BaseDocument;
 
 @Schema({
   timestamps: {
@@ -13,7 +13,7 @@ export type ArticleDocument = Article & BaseDocument;
   versionKey: false,
   virtuals: true,
 })
-export class Article extends BaseSchema {
+export class ArticleSchema extends BaseSchema {
   @Prop({ default: 'This is content' })
   content: string;
 
@@ -21,4 +21,4 @@ export class Article extends BaseSchema {
   author: string;
 }
 
-export const ArticleSchema = SchemaFactory.createForClass(Article);
+export const ArticleSchemaInstance = SchemaFactory.createForClass(ArticleSchema);

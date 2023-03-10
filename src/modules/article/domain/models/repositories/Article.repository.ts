@@ -2,16 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { Article, ArticleDocument } from '../schemas/Article.schema';
+import {
+  ArticleSchemaInstance,
+  ArticleDocument,
+} from '../schemas/Article.schema';
 import { BaseRepository } from '@shared/cqrs/repository.base';
 import { ArticleMapper } from '../../../mappers/article.mapper';
+import { ArticleSchema } from '../schemas/Article.schema';
 
 @Injectable()
 export default class ArticleRepository extends BaseRepository {
   constructor(
-    @InjectModel(Article.name)
+    @InjectModel(ArticleSchema.name)
     public articleDocumentModel: Model<ArticleDocument>,
-    public mapper: ArticleMapper
+    public mapper: ArticleMapper,
   ) {
     super();
   }

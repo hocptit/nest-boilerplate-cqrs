@@ -13,18 +13,18 @@ export class CreateArticleHandler
 {
   constructor(
     protected readonly articleRepository: ArticleRepository,
-    protected readonly publisher: EventPublisher,
     protected loggerService: LoggerService,
   ) {
-    super(publisher, loggerService, CreateArticleHandler.name);
+    super(loggerService, CreateArticleHandler.name);
   }
   async execute(command: CreateArticleCommand) {
     const { articleDto } = command;
     const articleCreated: ArticleDocument =
       await this.articleRepository.articleDocumentModel.create(articleDto);
-      const articleEntity = this.articleRepository.mapper.toDomain(articleCreated)
-    this.logger.warn('This is log', 'GOOO');
-    articleEntity.createdArticle();
+    const articleEntity =
+      this.articleRepository.mapper.toDomain(articleCreated);
+    console.log(articleEntity);
+    await articleEntity.createdArticle(articleDto);
     articleEntity.commit();
     return articleCreated;
   }

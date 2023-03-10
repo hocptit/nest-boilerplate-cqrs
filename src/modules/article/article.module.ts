@@ -8,12 +8,12 @@ import { ArticlesService } from './services/article.service';
 import { QueryHandlers } from './cqrs/queries/handlers';
 import {
   ArticleSchema,
-  Article,
 } from '@modules/article/domain/models/schemas/Article.schema';
 import { EventHandlers } from './cqrs/events/handlers/index';
 import { ArticleSagas } from './cqrs/sagas/article.sagas';
 import { ArticleQueriesController } from './controllers';
 import { ArticleMapper } from './mappers/article.mapper';
+import { ArticleSchemaInstance } from './domain/models/schemas/Article.schema';
 
 const mappers: Provider[] = [ArticleMapper];
 @Module({
@@ -21,8 +21,9 @@ const mappers: Provider[] = [ArticleMapper];
     CqrsModule,
     MongooseModule.forFeature([
       {
-        name: Article.name,
-        schema: ArticleSchema,
+        name: ArticleSchema.name,
+        // instance
+        schema: ArticleSchemaInstance,
       },
     ]),
   ],

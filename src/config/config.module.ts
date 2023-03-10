@@ -10,7 +10,7 @@ import { EEnvKey } from '@constants/env.constant';
     ConfigModule.forRoot({
       envFilePath: `.env`,
       validationSchema: Joi.object({
-        // nestjs
+        // todo: add validation
         [EEnvKey.NODE_ENV]: Joi.string().valid('development', 'production'),
         [EEnvKey.PORT]: Joi.number().default(3000),
         [EEnvKey.SWAGGER_PATH]: Joi.string(),

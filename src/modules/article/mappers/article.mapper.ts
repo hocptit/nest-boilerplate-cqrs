@@ -1,29 +1,39 @@
 import { Injectable } from "@nestjs/common";
-import { IMapper } from "@shared/cqrs/IMapper";
+import { IMapper } from "@shared/cqrs/mappers/IMapper";
 import { ArticleEntity } from '../domain/aggregate_root/ArticleEntity';
-import { ArticleDocument } from '../domain/models/schemas/Article.schema';
-import { ArticleResponseDto } from "../dtos/ArticleResponse.dto";
+import { ArticleDocument, ArticleSchema } from '../domain/models/schemas/Article.schema';
+import { ArticleResponseDto } from '../dtos/ArticleResponse.dto';
+import { BaseMapper } from '../../../shared/cqrs/mappers/mapper.base';
+import { EventPublisher } from "@nestjs/cqrs";
 
 @Injectable()
-export class ArticleMapper
-  implements IMapper<ArticleEntity, ArticleDocument, ArticleResponseDto>
-{
+export class ArticleMapper extends BaseMapper<
+  ArticleSchema,
+  ArticleEntity,
+  ArticleDocument,
+  ArticleResponseDto
+> {
+  constructor(protected readonly publisher: EventPublisher) {
+    super(publisher);
+  }
+
   toPersistencies(entities: ArticleEntity[]): ArticleDocument[] {
-      throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
   toDomains(records: ArticleDocument[]): ArticleEntity[] {
-      throw new Error("Method not implemented.");
+    return records.map((record) => this.toDomain(record));
   }
   toResponses(entities: ArticleEntity[]): ArticleResponseDto[] {
-      throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
-  
+
   toPersistence(entity: ArticleEntity): ArticleDocument {
     return entity.document;
   }
 
   toDomain(record: ArticleDocument): ArticleEntity {
-    return new ArticleEntity(record._id, record);
+    const entity =  new ArticleEntity(record._id, record);
+    return this.publisher.mergeObjectContext(entity);
   }
 
   toResponse(entity: ArticleEntity): ArticleResponseDto {
