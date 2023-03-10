@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  cqrs:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: cqrs
+    env_file:
+      - .env
+    tty: true
+    ports:
+      - "${PORT}:${PORT}"
+    restart: always

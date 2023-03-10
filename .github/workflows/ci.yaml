@@ -1,0 +1,21 @@
+name: validate-lint-when make pull request
+run-name: ${{ github.actor }} is validating eslint.
+
+on:
+  pull_request:
+    branches:
+      - 'develop'
+      - 'main'
+
+jobs:
+  validate-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+#      - uses: docker
+      - name: Using docker to check eslint
+        run: |
+          echo "Start lint...."
+          docker run -i --rm -v $(pwd):/app/source -v $(pwd)/.prettierrc:/app/.prettierrc hocptit/eslint-ci:0.0.1 "/app/source/{src,apps,libs,test}/**/*.ts"
+          echo "Lint done."

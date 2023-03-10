@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  cqrs-server:
+    container_name: cqrs-server
+    image: cqrs-server
+    env_file:
+      - .env
+    tty: true
+    ports:
+      - "${PORT}:${PORT}"
+    restart: always
+#    volumes:
+#      - .:/app
+#      - /app/node_modules
+    networks:
+      - cqrs-net
+
+networks:
+  cqrs-net:
+    external: true
