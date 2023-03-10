@@ -1,6 +1,5 @@
 import { BaseDocument, BaseSchema } from '@shared/models/base.entity';
 import { BaseAggregateRoot } from '../aggregate_root_base/aggregate-root.base';
-import { Schema } from '@nestjs/mongoose';
 
 export interface IMapper<
   Schema extends BaseSchema,

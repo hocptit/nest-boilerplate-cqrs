@@ -16,20 +16,32 @@ export class BaseMapper<
   toPersistence(entity: TEntity): TDocument {
     return entity.document;
   }
-  toDomain(record: TDocument): TEntity {
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  toDomain(_record: TDocument): TEntity {
     throw new Error('Method not implemented.');
     // return new DomainAggregate(record._id, record);
   }
-  toResponse(entity: TEntity): Response {
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  toResponse(_entity: TEntity): Response {
     throw new Error('Method not implemented.');
   }
   toPersistencies(entities: TEntity[]): TDocument[] {
     return entities.map((entity) => entity.document);
   }
-  toDomains(records: TDocument[]): TEntity[] {
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  toDomains(_records: TDocument[]): TEntity[] {
     throw new Error('Method not implemented.');
   }
-  toResponses(entities: TEntity[]): Response[] {
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  toResponses(_entities: TEntity[]): Response[] {
     throw new Error('Method not implemented.');
   }
 }

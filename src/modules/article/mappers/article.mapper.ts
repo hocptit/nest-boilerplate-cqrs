@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { IMapper } from '@shared/cqrs/mappers/IMapper';
 import { ArticleEntity } from '../domain/models/entities/ArticleEntity';
 import {
   ArticleDocument,
@@ -20,13 +19,18 @@ export class ArticleMapper extends BaseMapper<
     super(publisher);
   }
 
-  toPersistencies(entities: ArticleEntity[]): ArticleDocument[] {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  toPersistencies(_entities: ArticleEntity[]): ArticleDocument[] {
     throw new Error('Method not implemented.');
   }
   toDomains(records: ArticleDocument[]): ArticleEntity[] {
     return records.map((record) => this.toDomain(record));
   }
-  toResponses(entities: ArticleEntity[]): ArticleResponseDto[] {
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  toResponses(_entities: ArticleEntity[]): ArticleResponseDto[] {
     throw new Error('Method not implemented.');
   }
 

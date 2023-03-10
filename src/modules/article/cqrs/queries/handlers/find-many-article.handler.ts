@@ -29,9 +29,11 @@ export class FindManyArticlesQueryHandler
       conditions.author = query.listArticleDto.author;
     }
     if (query.listArticleDto.content) {
-      conditions.$text =  {$search: query.listArticleDto.content}
+      conditions.$text = { $search: query.listArticleDto.content };
     }
-    const data = await this.articleRepository.articleDocumentModel.find(conditions);
+    const data = await this.articleRepository.articleDocumentModel.find(
+      conditions,
+    );
 
     return Ok(data);
   }

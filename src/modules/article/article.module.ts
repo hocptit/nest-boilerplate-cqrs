@@ -1,4 +1,4 @@
-import { Module, OnModuleInit, Provider } from '@nestjs/common';
+import { Module, Provider } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CommandHandlers } from './cqrs/commands/handlers';
@@ -36,5 +36,4 @@ const mappers: Provider[] = [ArticleMapper];
     ArticleSagas,
   ],
 })
-export class ArticlesModule {
-}
+export class ArticlesModule {}
