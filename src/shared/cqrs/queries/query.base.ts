@@ -4,5 +4,3 @@
 export abstract class BaseQuery {
   // todo: implement
 }
-
-

@@ -1,4 +1,7 @@
-import { LoggerService, LoggerPort } from "@shared/modules/loggers/logger.service";
+import {
+  LoggerService,
+  LoggerPort,
+} from '@shared/modules/loggers/logger.service';
 
 export class BaseQueryHandler {
   protected logger: LoggerPort;

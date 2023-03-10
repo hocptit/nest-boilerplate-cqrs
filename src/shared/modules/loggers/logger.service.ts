@@ -11,7 +11,7 @@ const layouts: Record<string, Layout> = {
   dateFile: {
     type: 'pattern',
     pattern: '%-6p %d [%c] | %m',
-  }
+  },
 };
 
 const appenders: Record<string, Appender> = {
@@ -84,4 +84,4 @@ export class LoggerPort {
   warn(...args: any[]) {
     this.logger.warn(args);
   }
-} 
+}

@@ -11,7 +11,7 @@ export class BaseMapper<
   Response = any,
 > implements IMapper<Schema, TEntity, TDocument, Response>
 {
-  constructor(protected readonly publisher: EventPublisher){}
+  constructor(protected readonly publisher: EventPublisher) {}
 
   toPersistence(entity: TEntity): TDocument {
     return entity.document;

@@ -9,10 +9,7 @@ import { BaseDocument } from '../../models/base.entity';
 
 export class BaseCommandHandler {
   protected logger: LoggerPort;
-  constructor(
-    protected loggerService: LoggerService,
-    commandName: string,
-  ) {
+  constructor(protected loggerService: LoggerService, commandName: string) {
     this.logger = new LoggerPort(this.loggerService.getLogger(commandName));
   }
 }

@@ -3,9 +3,12 @@ import { BaseDocument } from '@shared/models/base.entity';
 import { ObjectId } from 'mongoose';
 import { BaseSchema } from '../../models/base.entity';
 
-
 export type AggregateID = ObjectId;
-export class BaseAggregateRoot<Schema extends BaseSchema , TDocument = Schema & BaseDocument> extends AggregateRoot {
+export class BaseAggregateRoot<
+  Schema extends BaseSchema,
+  TDocument = Schema & BaseDocument,
+> extends AggregateRoot {
+  // todo: don't using public document, should use private field, apply get,set method for each field
   public document: TDocument;
   public id: AggregateID;
   constructor(id?: AggregateID | undefined, document?: TDocument | undefined) {
@@ -23,5 +26,4 @@ export class BaseAggregateRoot<Schema extends BaseSchema , TDocument = Schema & 
     this.document = document;
     return this;
   }
-
 }

@@ -1,10 +1,13 @@
-import { Injectable } from "@nestjs/common";
-import { IMapper } from "@shared/cqrs/mappers/IMapper";
-import { ArticleEntity } from '../domain/aggregate_root/ArticleEntity';
-import { ArticleDocument, ArticleSchema } from '../domain/models/schemas/Article.schema';
+import { Injectable } from '@nestjs/common';
+import { IMapper } from '@shared/cqrs/mappers/IMapper';
+import { ArticleEntity } from '../domain/models/entities/ArticleEntity';
+import {
+  ArticleDocument,
+  ArticleSchema,
+} from '../domain/models/schemas/Article.schema';
 import { ArticleResponseDto } from '../dtos/ArticleResponse.dto';
 import { BaseMapper } from '../../../shared/cqrs/mappers/mapper.base';
-import { EventPublisher } from "@nestjs/cqrs";
+import { EventPublisher } from '@nestjs/cqrs';
 
 @Injectable()
 export class ArticleMapper extends BaseMapper<
@@ -32,7 +35,7 @@ export class ArticleMapper extends BaseMapper<
   }
 
   toDomain(record: ArticleDocument): ArticleEntity {
-    const entity =  new ArticleEntity(record._id, record);
+    const entity = new ArticleEntity(record._id, record);
     return this.publisher.mergeObjectContext(entity);
   }
 

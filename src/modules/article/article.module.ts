@@ -6,9 +6,7 @@ import { ArticleCommandsController } from './controllers';
 import ArticleRepository from 'modules/article/domain/models/repositories/Article.repository';
 import { ArticlesService } from './services/article.service';
 import { QueryHandlers } from './cqrs/queries/handlers';
-import {
-  ArticleSchema,
-} from '@modules/article/domain/models/schemas/Article.schema';
+import { ArticleSchema } from '@modules/article/domain/models/schemas/Article.schema';
 import { EventHandlers } from './cqrs/events/handlers/index';
 import { ArticleSagas } from './cqrs/sagas/article.sagas';
 import { ArticleQueriesController } from './controllers';
@@ -38,6 +36,5 @@ const mappers: Provider[] = [ArticleMapper];
     ArticleSagas,
   ],
 })
-export class ArticlesModule implements OnModuleInit {
-  onModuleInit() {}
+export class ArticlesModule {
 }

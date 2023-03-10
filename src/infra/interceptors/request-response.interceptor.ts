@@ -46,14 +46,17 @@ export function createResponse<T>(data: any): IResponse<T> {
 export class ResponseTransformInterceptor<T>
   implements NestInterceptor<T, IResponse<T>>
 {
-  constructor(private readonly loggingService: LoggerService, private readonly configService: ConfigService) {}
+  constructor(
+    private readonly loggingService: LoggerService,
+    private readonly configService: ConfigService,
+  ) {}
   private logger = this.loggingService.getLogger('Request');
   intercept(
     context: ExecutionContext,
     next: CallHandler,
   ): Observable<IResponse<T>> {
     const logLevel = this.configService.get(EEnvKey.LOG_LEVEL);
-    if(logLevel === 'debug'){
+    if (logLevel === 'debug') {
       const request = context.switchToHttp().getRequest();
       this.logger.info(
         request.headers,

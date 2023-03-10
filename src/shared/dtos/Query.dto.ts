@@ -1,3 +1,3 @@
 export class BaseQueryDto {
-    // todo: implement
+  // todo: implement
 }

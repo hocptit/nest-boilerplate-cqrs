@@ -138,7 +138,10 @@ export class ResponsePayload<T> implements IResponse<T> {
   _metadata?: {
     [key: string]: any;
   };
-  @ApiProperty({ description: 'If success = fail, it is message error, if success = true, it will null' })
+  @ApiProperty({
+    description:
+      'If success = fail, it is message error, if success = true, it will null',
+  })
   message?: string | null;
   @ApiProperty({ description: 'Check is success' })
   success?: boolean;

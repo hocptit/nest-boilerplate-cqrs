@@ -5,7 +5,7 @@ import { BaseQueryHandler } from '@shared/cqrs/queries/query-handler.base';
 import { LoggerService } from '@shared/modules/loggers/logger.service';
 import { ENotFoundArticle } from '../../../domain/article.error';
 import { ArticleDocument } from '../../../domain/models/schemas/Article.schema';
-import { Err, Result, Ok } from 'oxide.ts';
+import { Result, Ok } from 'oxide.ts';
 
 @QueryHandler(FindManyArticlesQuery)
 export class FindManyArticlesQueryHandler

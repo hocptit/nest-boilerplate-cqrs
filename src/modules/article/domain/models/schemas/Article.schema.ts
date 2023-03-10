@@ -21,4 +21,5 @@ export class ArticleSchema extends BaseSchema {
   author: string;
 }
 
-export const ArticleSchemaInstance = SchemaFactory.createForClass(ArticleSchema);
+export const ArticleSchemaInstance =
+  SchemaFactory.createForClass(ArticleSchema);
