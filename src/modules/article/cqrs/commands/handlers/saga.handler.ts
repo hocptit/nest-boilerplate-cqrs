@@ -6,7 +6,9 @@ import { SagaCommand } from '../impl/saga.command';
 
 @CommandHandler(SagaCommand)
 export class SagaHandler implements ICommandHandler<SagaCommand> {
-  constructor() {} // private readonly publisher: EventPublisher, // private readonly articleRepository: ArticleRepository,
-
-  async execute(command: SagaCommand) {}
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  async execute(_command: SagaCommand) {
+    console.log('SagaHandler');
+  }
 }

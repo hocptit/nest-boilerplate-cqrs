@@ -2,10 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import {
-  ArticleSchemaInstance,
-  ArticleDocument,
-} from '../schemas/Article.schema';
+import { ArticleDocument } from '../schemas/Article.schema';
 import { BaseRepository } from '@shared/cqrs/repository.base';
 import { ArticleMapper } from '../../../mappers/article.mapper';
 import { ArticleSchema } from '../schemas/Article.schema';

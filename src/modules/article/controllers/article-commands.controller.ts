@@ -3,7 +3,7 @@ import { ArticlesService } from '../services/article.service';
 import { CreateArticleDto } from '../dtos/CreateArticle.dto';
 import { routesV1 } from '../../../app.routes';
 import { Controller, Post } from '@shared/decorators/mixin.decorators';
-import { ApiOkResponsePayload, EApiOkResponsePayload, ResponsePayload } from 'infra/swagger';
+import { ApiOkResponsePayload, EApiOkResponsePayload } from 'infra/swagger';
 import { BaseResponseCommand } from '../../../shared/types/response-command.base';
 
 @Controller(routesV1.article.root)

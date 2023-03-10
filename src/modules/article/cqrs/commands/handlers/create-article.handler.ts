@@ -1,4 +1,4 @@
-import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateArticleCommand } from '../impl/create-article.command';
 import ArticleRepository from 'modules/article/domain/models/repositories/Article.repository';
 import { LoggerService } from '@shared/modules/loggers/logger.service';

@@ -4,7 +4,7 @@ import { ObjectIDDto } from '@shared/dtos/ObjectID.dto';
 import { routesV1 } from 'app.routes';
 import { Controller, Get, List } from '@shared/decorators/mixin.decorators';
 import { ApiOkResponsePayload, EApiOkResponsePayload } from 'infra/swagger';
-import {  ArticleSchema } from '../domain/models/schemas/Article.schema';
+import { ArticleSchema } from '../domain/models/schemas/Article.schema';
 import { ListArticleDto } from '../dtos/ListArticle.dto';
 
 @Controller(routesV1.article.root)
