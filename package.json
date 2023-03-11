@@ -8,10 +8,10 @@
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
+    "start": "node --max_old_space_size=2560 dist/main",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node --max_old_space_size=2560 dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -21,7 +21,8 @@
   },
   "engines": {
     "node": "16.19.0",
-    "npm": "8.19.3"
+    "npm": "8.19.3",
+    "yarn": "1.22.19"
   },
   "dependencies": {
     "@nestjs/common": "9.0.0",
