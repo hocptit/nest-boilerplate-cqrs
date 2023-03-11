@@ -5,7 +5,7 @@ import {
   ArticleSchema,
 } from '../domain/models/schemas/Article.schema';
 import { ArticleResponseDto } from '../dtos/ArticleResponse.dto';
-import { BaseMapper } from '../../../shared/cqrs/mappers/mapper.base';
+import { BaseMapper } from '@shared/cqrs/mappers/mapper.base';
 import { EventPublisher } from '@nestjs/cqrs';
 
 @Injectable()
@@ -21,6 +21,7 @@ export class ArticleMapper extends BaseMapper<
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toPersistencies(_entities: ArticleEntity[]): ArticleDocument[] {
     throw new Error('Method not implemented.');
   }
@@ -30,6 +31,7 @@ export class ArticleMapper extends BaseMapper<
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toResponses(_entities: ArticleEntity[]): ArticleResponseDto[] {
     throw new Error('Method not implemented.');
   }

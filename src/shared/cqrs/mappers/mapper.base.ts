@@ -19,6 +19,7 @@ export class BaseMapper<
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toDomain(_record: TDocument): TEntity {
     throw new Error('Method not implemented.');
     // return new DomainAggregate(record._id, record);
@@ -26,6 +27,7 @@ export class BaseMapper<
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toResponse(_entity: TEntity): Response {
     throw new Error('Method not implemented.');
   }
@@ -35,12 +37,14 @@ export class BaseMapper<
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toDomains(_records: TDocument[]): TEntity[] {
     throw new Error('Method not implemented.');
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toResponses(_entities: TEntity[]): Response[] {
     throw new Error('Method not implemented.');
   }

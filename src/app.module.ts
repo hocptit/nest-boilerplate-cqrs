@@ -3,7 +3,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { ScheduleModule } from '@nestjs/schedule';
 import { memoryStorage } from 'multer';
 import { ConsoleModule } from 'nestjs-console';
-import { SentryInterceptor, SentryModule } from "@ntegral/nestjs-sentry";
+import { SentryInterceptor, SentryModule } from '@ntegral/nestjs-sentry';
 
 import { ConfigurationModule } from '@config/config.module';
 import { DatabaseModule } from '@config/database.module';
@@ -14,7 +14,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MODULES } from './modules';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { APP_INTERCEPTOR } from "@nestjs/core";
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 @Module({
   imports: [
