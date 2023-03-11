@@ -18,7 +18,7 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "postinstall": "husky install"
   },
   "engines": {
     "node": "16.19.0",
@@ -53,7 +53,8 @@
     "nestjs-request-context": "^2.1.0",
     "oxide.ts": "^1.1.0",
     "reflect-metadata": "0.1.13",
-    "rxjs": "7.2.0"
+    "rxjs": "7.2.0",
+    "husky": "8.0.1"
   },
   "lint-staged": {
     "*.ts": [
