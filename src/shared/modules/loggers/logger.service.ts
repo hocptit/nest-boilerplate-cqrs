@@ -22,6 +22,7 @@ const appenders: Record<string, Appender> = {
   dateFile: {
     type: 'dateFile',
     filename: 'logs/out.log',
+    maxLogSize: 1234567,
     pattern: '-yyyy-MM-dd',
     layout: layouts.dateFile,
   },
