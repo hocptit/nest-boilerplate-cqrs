@@ -9,7 +9,7 @@ import { ConfigurationModule } from '@config/config.module';
 import { DatabaseModule } from '@config/database.module';
 import * as Sentry from '@sentry/node';
 import { LoggingModule } from '@shared/modules/loggers/logger.module';
-
+import * as PI from '@sentry/profiling-node';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MODULES } from './modules';
@@ -48,10 +48,12 @@ import { EEnvKey } from '@constants/env.constant';
           new Sentry.Integrations.Http({
             tracing: config.get<string>(EEnvKey.SENTRY_HTTP_ENABLED) === 'true',
           }),
+          new PI.ProfilingIntegration(),
         ],
         // We recommend adjusting this value in production, or using tracesSampler
         // for finer control
         tracesSampleRate: 1.0,
+        profilesSampleRate: 1.0,
       }),
       inject: [ConfigService],
     }),
