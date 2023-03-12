@@ -4,7 +4,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import express from 'express';
 
 import { EEnvKey } from '@constants/env.constant';
-
+import * as Sentry from '@sentry/node';
 import { ResponseTransformInterceptor } from 'infra/interceptors/request-response.interceptor';
 import { HttpExceptionFilter } from 'infra/middleware/http-exception.filter';
 import { UnknownExceptionsFilter } from 'infra/middleware/unknown-exceptions.filter';
@@ -24,7 +24,9 @@ async function bootstrap() {
   );
   app.useGlobalFilters(new UnknownExceptionsFilter(loggingService));
   app.useGlobalFilters(new HttpExceptionFilter(loggingService));
-
+  app.use(Sentry.Handlers.requestHandler());
+  app.use(Sentry.Handlers.tracingHandler());
+  app.use(Sentry.Handlers.errorHandler());
   app.useGlobalPipes(new BodyValidationPipe());
   app.setGlobalPrefix('api');
   app.enableCors();

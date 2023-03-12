@@ -39,10 +39,12 @@
     "@ntegral/nestjs-sentry": "^4.0.0",
     "@sentry/hub": "^7.42.0",
     "@sentry/node": "^7.42.0",
+    "@sentry/tracing": "^7.42.0",
     "class-transformer": "0.5.1",
     "class-validator": "0.14.0",
     "dotenv": "16.0.3",
     "fp-ts": "^2.13.1",
+    "husky": "8.0.1",
     "joi": "17.8.3",
     "log4js": "6.8.0",
     "moment": "2.29.4",
@@ -53,8 +55,7 @@
     "nestjs-request-context": "^2.1.0",
     "oxide.ts": "^1.1.0",
     "reflect-metadata": "0.1.13",
-    "rxjs": "7.2.0",
-    "husky": "8.0.1"
+    "rxjs": "7.2.0"
   },
   "lint-staged": {
     "*.ts": [

@@ -24,6 +24,8 @@ export class ArticleQueriesController {
   })
   @ApiOkResponsePayload(ArticleSchema, EApiOkResponsePayload.OBJECT)
   async findArticleById(@Param() params: ObjectIDDto) {
-    return this.articleService.findById(params.id);
+    const a = await this.articleService.findById(params.id);
+    throw Error('aaaaa');
+    return a;
   }
 }
