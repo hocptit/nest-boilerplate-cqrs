@@ -550,6 +550,18 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
+"@datadog/browser-core@4.35.0":
+  version "4.35.0"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-core/-/browser-core-4.35.0.tgz#a6303fca009ed5ca38cedce3338d3f316ebfb596"
+  integrity sha512-ou5En1+G0IBgEQHs2A7iyPpjVE/Q7w5oNYm6IsAArGPWeWqaUI4Bimm+QXmh7u8qMZEbm+9OnVdictwLxpevsQ==
+
+"@datadog/browser-logs@^4.35.0":
+  version "4.35.0"
+  resolved "https://registry.yarnpkg.com/@datadog/browser-logs/-/browser-logs-4.35.0.tgz#2e5dc4d6dca11849ced10b18fe4cf2d4e9fa99e9"
+  integrity sha512-vR1EPcfHKOKvUIv6fONZsyP3E5MBCCqTgu06NGUpMk9pYcxOaodwaPeuR9n6ks+asQJKTcZuXNN43ZjcH8XCBw==
+  dependencies:
+    "@datadog/browser-core" "4.35.0"
+
 "@eslint/eslintrc@^1.0.3":
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-1.4.1.tgz#af58772019a2d271b7e2d4c23ff4ddcba3ccfb3e"
