@@ -54,6 +54,12 @@ import { EEnvKey } from '@constants/env.constant';
         // for finer control
         tracesSampleRate: 1.0,
         profilesSampleRate: 1.0,
+        // beforeSend: function (e, b) {
+        //   console.log('beforeSend', e, b);
+        // },
+        // beforeSendTransaction: function (e, b) {
+        //   console.log('beforeSendTransaction', e, b);
+        // },
       }),
       inject: [ConfigService],
     }),
