@@ -1,11 +1,9 @@
 FROM node:18 AS build
 COPY . ./
 
-RUN npm install -g yarn
-
 RUN yarn install --prod
 
-RUN yarn build
+RUN yarn run build
 
 FROM node:18 as main
 
