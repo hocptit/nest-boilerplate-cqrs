@@ -60,9 +60,6 @@ jobs:
     if: github.ref == 'refs/heads/develop'
     needs: [build-and-push-image]
     runs-on: ubuntu-latest
-    environment:
-      name: testnet
-      url: https://mumbai-api.goldfever.io/
     permissions:
       contents: read
       packages: write

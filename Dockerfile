@@ -1,6 +1,8 @@
 FROM node:18 AS dist
 COPY package.json yarn.lock ./
 
+RUN npm install -g yarn
+
 RUN yarn install
 
 COPY . ./
@@ -9,6 +11,8 @@ RUN yarn build:prod
 
 FROM node:18 AS node_modules
 COPY package.json yarn.lock ./
+
+RUN npm install -g yarn
 
 RUN yarn install --prod
 
