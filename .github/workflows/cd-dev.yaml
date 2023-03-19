@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - 'develop'
+env:
+  REGISTRY: ghcr.io
 jobs:
   build-and-push-image:
     if: github.ref == 'refs/heads/develop'
