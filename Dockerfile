@@ -1,11 +1,11 @@
-FROM node:18 AS build
+FROM node:16.19.0 AS build
 COPY . ./
 
 RUN yarn install --prod
 
 RUN yarn run build
 
-FROM node:18 as main
+FROM node:16.19.0 as main
 
 ARG PORT=3000
 
