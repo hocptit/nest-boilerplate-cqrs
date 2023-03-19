@@ -1,7 +1,9 @@
 FROM node:16.19.0 AS build
 COPY . ./
 
-RUN yarn install --prod
+RUN ls -la
+
+RUN yarn install
 
 RUN yarn run build
 
