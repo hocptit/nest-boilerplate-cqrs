@@ -16,7 +16,6 @@ services:
         loki-retries: "5"
         loki-batch-size: "400"
         max-size: "50m"
-        loki-basic-auth: "${LOKI_AUTH}"
     networks:
       - cqrs-net
 
