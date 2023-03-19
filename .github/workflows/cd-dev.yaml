@@ -5,10 +5,80 @@ on:
     branches:
       - 'develop'
 jobs:
-  deploy-dev:
+  build-and-push-image:
+    if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
-      - run: |
-          echo "Deploy script"
+      - name: Get docker build version
+        id: docker_build_version
+        run: |
+          echo "$(grep version package.json | cut -f 4 -d\")-$(git rev-parse --short=9 HEAD)"
+          echo "build_version=$(grep version package.json | cut -f 4 -d\")-$(git rev-parse --short=9 HEAD)" >> $GITHUB_OUTPUT
+      - name: Set up Docker Build
+        uses: docker/setup-buildx-action@v2
+      - name: Lower case repository owner
+        id: repository_owner
+        run: |
+          echo "lowercase=$(echo ${{ github.repository_owner }} | tr [:upper:] [:lower:])" >> $GITHUB_OUTPUT
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            ${{ env.REGISTRY }}/${{ steps.repository_owner.outputs.lowercase }}/backend
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=match,pattern=backend-v(.*),group=1
+            type=raw,value=latest
+            type=raw,value=${{steps.docker_build_version.outputs.build_version}}
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: ./packages/backend
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ steps.repository_owner.outputs.lowercase }}/backend:buildcache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ steps.repository_owner.outputs.lowercase }}/backend:buildcache,mode=max
+    outputs:
+      docker_image: ${{ env.REGISTRY }}/${{ steps.repository_owner.outputs.lowercase }}/backend:${{steps.docker_build_version.outputs.build_version}}
+  deploy:
+    if: github.ref == 'refs/heads/develop'
+    needs: [build-and-push-image]
+    runs-on: ubuntu-latest
+    environment:
+      name: testnet
+      url: https://mumbai-api.goldfever.io/
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Create SSH key
+        working-directory: /usr/bin
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.LUNIAND_DEV_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          sudo chmod 600 ~/.ssh/id_rsa
+          echo "${{ secrets.LUNIAND_DEV_SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          echo "${{ secrets.LUNIAND_DEV_SSH_CONFIG }}" > ~/.ssh/config
+          sudo chmod 600 ~/.ssh/config
+        shell: bash
+      - name: Update backend service
+        working-directory: /usr/bin
+        run: |
+          echo ${{needs.build-and-push-image.outputs.docker_image}}
+          ssh ${{ secrets.LUNIAND_DEV_SSH_HOST }} docker pull ${{needs.build-and-push-image.outputs.docker_image}}
+          ssh ${{ secrets.LUNIAND_DEV_SSH_HOST }} docker service update --image ${{needs.build-and-push-image.outputs.docker_image}} luniand-project-x_backend --with-registry-auth
+        shell: bash
