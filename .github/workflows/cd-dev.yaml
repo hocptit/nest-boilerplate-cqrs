@@ -33,7 +33,7 @@ jobs:
         with:
           # list of Docker images to use as base name for tags
           images: |
-            ${{ env.REGISTRY }}/${{ steps.repository_owner.outputs.lowercase }}/backend
+            ${{ env.REGISTRY }}/${{ steps.repository_owner.outputs.lowercase }}/cqrs
           # generate Docker tags based on the following events/attributes
           tags: |
             type=match,pattern=backend-v(.*),group=1
@@ -52,10 +52,10 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ steps.repository_owner.outputs.lowercase }}/backend:buildcache
-          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ steps.repository_owner.outputs.lowercase }}/backend:buildcache,mode=max
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ steps.repository_owner.outputs.lowercase }}/cqrs:buildcache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ steps.repository_owner.outputs.lowercase }}/cqrs:buildcache,mode=max
     outputs:
-      docker_image: ${{ env.REGISTRY }}/${{ steps.repository_owner.outputs.lowercase }}/backend:${{steps.docker_build_version.outputs.build_version}}
+      docker_image: ${{ env.REGISTRY }}/${{ steps.repository_owner.outputs.lowercase }}/cqrs:${{steps.docker_build_version.outputs.build_version}}
   deploy:
     if: github.ref == 'refs/heads/develop'
     needs: [build-and-push-image]
