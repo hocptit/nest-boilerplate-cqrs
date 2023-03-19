@@ -1,22 +1,13 @@
-FROM node:18 AS dist
-COPY package.json yarn.lock ./
-
-RUN npm install -g yarn
-
-RUN yarn install
-
+FROM node:18 AS build
 COPY . ./
-
-RUN yarn build:prod
-
-FROM node:18 AS node_modules
-COPY package.json yarn.lock ./
 
 RUN npm install -g yarn
 
 RUN yarn install --prod
 
-FROM node:18
+RUN yarn build
+
+FROM node:18 as main
 
 ARG PORT=3000
 
@@ -24,8 +15,8 @@ RUN mkdir -p /usr/src/app
 
 WORKDIR /usr/src/app
 
-COPY --from=dist dist /usr/src/app/dist
-COPY --from=node_modules node_modules /usr/src/app/node_modules
+COPY --from=build dist /usr/src/app/dist
+COPY --from=build node_modules /usr/src/app/node_modules
 
 COPY . /usr/src/app
 
