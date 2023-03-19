@@ -78,6 +78,7 @@ jobs:
         working-directory: /usr/bin
         run: |
           echo ${{needs.build-and-push-image.outputs.docker_image}}
+          echo "${{ secrets.ENV_DEV }}" >> .env
           ssh ${{ secrets.LUNIAND_DEV_SSH_HOST }} docker pull ${{needs.build-and-push-image.outputs.docker_image}}
-          ssh ${{ secrets.LUNIAND_DEV_SSH_HOST }} docker service update --image ${{needs.build-and-push-image.outputs.docker_image}} luniand-project-x_backend --with-registry-auth
+          ssh ${{ secrets.LUNIAND_DEV_SSH_HOST }} docker service update --image ${{needs.build-and-push-image.outputs.docker_image}} cqrs_backend --with-registry-auth
         shell: bash

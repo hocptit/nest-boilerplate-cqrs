@@ -1,8 +1,8 @@
 version: '3.7'
 services:
   cqrs-server:
-    container_name: cqrs-server
-    image: cqrs-server
+    container_name: cqrs
+    image: ghcr.io/hocptit/cqrs:latest
     env_file:
       - .env
     tty: true
