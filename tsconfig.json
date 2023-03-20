@@ -1,28 +1,84 @@
 {
-	"compilerOptions": {
-		"module": "commonjs",
-		"declaration": true,
-		"removeComments": true,
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"allowSyntheticDefaultImports": true,
-		"target": "es2017",
-		"sourceMap": true,
-		"outDir": "./dist",
-		"baseUrl": "./src",
-		"incremental": true,
-		"allowJs": true,
-		"resolveJsonModule": true,
-		"paths": {
-			"@config/*": ["config/*"],
-			"@constants/*": ["constants/*"],
-			"@models/*": ["models/*"],
-			"@repo/*": ["repositories/*"],
-			"@shared/*": ["shared/*"],
-			"@modules/*": ["modules/*"]
-		},
-		"esModuleInterop": true,
-	},
-	"include": ["src/**/*"],
-	"exclude": ["node_modules", "dist"]
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "paths": {
+      "@app": [
+        "apps/app-api/src"
+      ],
+      "@app/*": [
+        "apps/app-api/src/*"
+      ],
+      "@libs/shared": [
+        "libs/shared/src"
+      ],
+      "@libs/shared/*": [
+        "libs/shared/src/*"
+      ],
+      "@libs/infra": [
+        "libs/infra/src"
+      ],
+      "@libs/infra/*": [
+        "libs/infra/src/*"
+      ],
+      "@libs/configs": [
+        "libs/configs/src"
+      ],
+      "@libs/configs/*": [
+        "libs/configs/src/*"
+      ],
+      "@assets": [
+        "assets/"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@app/constants": [
+        "apps/app-api/src/constants"
+      ],
+      "@app/constants/*": [
+        "apps/app-api/src/constants/*"
+      ],
+      "@app/models": [
+        "apps/app-api/src/models"
+      ],
+      "@app/models/*": [
+        "apps/app-api/src/models/*"
+      ],
+      "@app/repo": [
+        "apps/app-api/src/repositories"
+      ],
+      "@app/repo/*": [
+        "apps/app-api/src/repositories/*"
+      ],
+      "@app/modules": [
+        "apps/app-api/src/modules"
+      ],
+      "@app/modules/*": [
+        "apps/app-api/src/modules/*"
+      ],
+      "@app/grpc": [
+        "apps/grpc-internal/src"
+      ],
+      "@app/grpc/*": [
+        "apps/grpc-internal/src/*"
+      ],
+      "@libs/grpc-client": [
+        "libs/grpc-client/src"
+      ],
+      "@libs/grpc-client/*": [
+        "libs/grpc-client/src/*"
+      ]
+    }
+  }
 }

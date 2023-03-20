@@ -1,8 +1,71 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "sourceRoot": "apps/app-api",
   "compilerOptions": {
-    "deleteOutDir": true
+    "assets": [
+      "**/*.proto"
+    ],
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/app-api/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/boiler",
+  "projects": {
+    "app-api": {
+      "type": "application",
+      "root": "apps/app-api",
+      "entryFile": "main",
+      "sourceRoot": "apps/app-api/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/app-api/tsconfig.app.json"
+      }
+    },
+    "grpc-internal": {
+      "type": "application",
+      "root": "apps/grpc-internal",
+      "entryFile": "main",
+      "sourceRoot": "apps/grpc-internal/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/grpc-internal/tsconfig.app.json"
+      }
+    },
+    "shared": {
+      "type": "library",
+      "root": "libs/shared",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared/tsconfig.lib.json"
+      }
+    },
+    "infra": {
+      "type": "library",
+      "root": "libs/infra",
+      "entryFile": "index",
+      "sourceRoot": "libs/infra/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/infra/tsconfig.lib.json"
+      }
+    },
+    "configs": {
+      "type": "library",
+      "root": "libs/configs",
+      "entryFile": "index",
+      "sourceRoot": "libs/configs/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/configs/tsconfig.lib.json"
+      }
+    },
+    "grpc-client": {
+      "type": "library",
+      "root": "libs/grpc-client",
+      "entryFile": "index",
+      "sourceRoot": "libs/grpc-client/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/grpc-client/tsconfig.lib.json"
+      }
+    }
   }
 }

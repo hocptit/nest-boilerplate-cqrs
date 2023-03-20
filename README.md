@@ -5,6 +5,19 @@ Project auto deploy in Heroku.
 
 The project applies the design pattern DDD (using CQRS). See details in the document (link above).
 
+## grpc for nestjs auto generate from proto file [here](https://github.com/stephenh/ts-proto/blob/main/NESTJS.markdown)
+
+## Start dev app-api
+
+```bash
+$ npm run start:dev app-api 
+```
+
+## Start dev grpc
+
+```bash
+$ npm run start:dev grpc-internal
+```
 
 ## Stay in touch
 
