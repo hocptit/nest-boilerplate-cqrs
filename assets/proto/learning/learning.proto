@@ -1,0 +1,17 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
+
+package learning;
+
+service LearningService {
+    rpc GetLearning (GetLearningRequest) returns (GetLearningResponse) {}
+}
+
+message GetLearningRequest {
+    string name = 1;
+}
+
+message GetLearningResponse {
+    string message = 1;
+}
