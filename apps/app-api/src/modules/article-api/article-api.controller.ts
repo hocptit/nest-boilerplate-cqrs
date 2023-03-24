@@ -3,7 +3,7 @@ import { LearningApiService } from '@app/modules/learning-api/learning-api.servi
 import { routesV1 } from '@app/app.routes';
 import { Query, UsePipes, ValidationPipe } from '@nestjs/common';
 
-@Controller(routesV1.learning.root)
+@Controller('article')
 @UsePipes(new ValidationPipe())
 export class LearningApiController {
   constructor(private readonly learningApiService: LearningApiService) {}

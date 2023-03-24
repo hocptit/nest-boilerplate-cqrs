@@ -1,1 +1,1 @@
-export * from './exception.resolver';
+export * from './exception.http';

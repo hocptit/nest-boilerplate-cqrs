@@ -6,4 +6,8 @@ export class CreateArticleDto extends CommandDto {
   @ApiProperty()
   @IsString()
   content: string;
+
+  @ApiProperty()
+  @IsString()
+  title: string;
 }

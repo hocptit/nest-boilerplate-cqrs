@@ -1,0 +1,32 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
+
+package article;
+
+service ArticleService {
+    rpc GetArticle (GetArticleRequest) returns (GetArticleResponse) {}
+    rpc CreateArticle (CreateArticleRequest) returns (CreateLearningResponse) {}
+
+}
+
+message GetArticleRequest {
+    string id = 1;
+}
+
+message GetArticleResponse {
+    string id = 1;
+    string content = 2;
+    string title = 3;
+}
+
+
+message CreateArticleRequest {
+    string id = 1;
+    string content = 2;
+    string title = 3;
+}
+
+message CreateLearningResponse {
+    string id = 1;
+}
