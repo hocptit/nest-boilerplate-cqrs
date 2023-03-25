@@ -3,9 +3,5 @@ node_js:
   - "16"
 services:
   - docker
-install:
-  - npm install
-script:
-  - npm test
 after_success:
     docker run -i --rm -v $(pwd):/app/source -v $(pwd)/.prettierrc:/app/.prettierrc hocptit/eslint-ci:0.0.1 "/app/source/{src,apps,src,test}/**/*.ts";
