@@ -1,6 +1,6 @@
-import { CreateArticleDto } from '@app/learning/modules/article/dtos/CreateArticle.dto';
 import { ICommand } from '@nestjs/cqrs';
+import { CreateArticleRequest } from '@assets/proto/learning/learning';
 
 export class SagaCommand implements ICommand {
-  constructor(public readonly articleDto: CreateArticleDto) {}
+  constructor(public readonly articleDto: CreateArticleRequest) {}
 }

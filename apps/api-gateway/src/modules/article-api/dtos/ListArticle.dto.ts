@@ -2,7 +2,8 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 import { BaseQuery, SafeMongoIdTransform } from '@libs/shared';
 import { Transform } from 'class-transformer';
 import { IsMongoId, IsOptional, IsString } from 'class-validator';
-export class ListArticleDto extends BaseQuery {
+import { ListArticleRequest } from '@assets/proto/learning/learning';
+export class ListArticleDto extends BaseQuery implements ListArticleRequest {
   @IsMongoId()
   @IsString()
   @ApiPropertyOptional()

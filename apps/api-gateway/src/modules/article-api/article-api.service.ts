@@ -4,6 +4,8 @@ import {
   GetArticleRequest,
   CreateArticleRequest,
   CreateArticleResponse,
+  ListArticleRequest,
+  ListArticleResponse,
 } from '@assets/proto/learning/learning';
 import { ArticleService } from '@libs/grpc-client/learning/article.service';
 
@@ -15,6 +17,11 @@ export class ArticleApiService {
     getArticleRequest: GetArticleRequest,
   ): Promise<GetArticleResponse> {
     return this.gRPCArticleService.getArticle(getArticleRequest);
+  }
+  listArticle(
+    listArticleRequest: ListArticleRequest,
+  ): Promise<ListArticleResponse> {
+    return this.gRPCArticleService.listArticle(listArticleRequest);
   }
 
   createArticle(

@@ -1,9 +1,4 @@
-import {
-  CallHandler,
-  ExecutionContext,
-  Injectable,
-  NestInterceptor,
-} from '@nestjs/common';
+import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
 import { RedisContext, RmqContext, TcpContext } from '@nestjs/microservices';
 import { Response } from 'express';
 import { Observable } from 'rxjs';
@@ -31,14 +26,7 @@ export class ResponseTransformInterceptor<T>
   ): Observable<IResponse<T>> {
     const nodeEnv = this.configService.get(EEnvKey.NODE_ENV);
     if (nodeEnv === 'debug') {
-      const request = context.switchToHttp().getRequest();
-      this.logger.info(
-        request.headers,
-        request.query,
-        request.params,
-        request.url,
-        request.body,
-      );
+      this.logger.info(context);
     }
     return next.handle().pipe(
       map((data) => {
@@ -57,6 +45,16 @@ export class ResponseTransformInterceptor<T>
           return data;
         }
         // For Http RestAPI
+        if (nodeEnv === 'debug') {
+          const request = context.switchToHttp().getRequest();
+          this.logger.info(
+            request.headers,
+            request.query,
+            request.params,
+            request.url,
+            request.body,
+          );
+        }
         const responseData = createResponse(data);
         response.status(responseData.statusCode);
         return createResponse(data);

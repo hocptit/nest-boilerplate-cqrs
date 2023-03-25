@@ -22,6 +22,8 @@ message GetLearningResponse {
 service ArticleService {
     rpc GetArticle (GetArticleRequest) returns (GetArticleResponse) {}
     rpc CreateArticle (CreateArticleRequest) returns (CreateArticleResponse) {}
+    rpc ListArticle (ListArticleRequest) returns (ListArticleResponse) {}
+
 }
 
 message GetArticleRequest {
@@ -50,6 +52,22 @@ message CreateArticleRequest {
 
 message CreateArticleResponse {
     string id = 1;
+}
+
+message ListArticleRequest {
+    oneof fields {
+        string content = 1;
+        string author = 2;
+    }
+}
+message ListArticleResponse {
+    message Articles {
+        string id = 1;
+        string author_id = 2;
+        string content = 3;
+        string title = 4;
+    }
+    repeated Articles articles = 1;
 }
 
 // another service

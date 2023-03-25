@@ -6,6 +6,8 @@ import {
   GetArticleRequest,
   GetArticleResponse,
   ArticleServiceControllerMethods,
+  ListArticleRequest,
+  ListArticleResponse,
 } from '@assets/proto/learning/learning';
 import { Observable } from 'rxjs';
 import { Controller } from '@nestjs/common';
@@ -34,5 +36,14 @@ export class ArticleController implements ArticleServiceController {
     | Observable<GetArticleResponse>
     | GetArticleResponse {
     return this.articleService.findById(request.id);
+  }
+
+  listArticle(
+    request: ListArticleRequest,
+  ):
+    | Promise<ListArticleResponse>
+    | Observable<ListArticleResponse>
+    | ListArticleResponse {
+    return this.articleService.findAll(request);
   }
 }

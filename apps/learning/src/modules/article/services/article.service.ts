@@ -2,20 +2,17 @@ import { Injectable } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ArticleDocument } from '@app/learning/modules/article/domain/models/schemas/Article.schema';
 import { Result, match } from 'oxide.ts';
-import {
-  AggregateID,
-  BadRequestException,
-  BaseResponseCommand,
-} from '@libs/shared';
+import { AggregateID, BadRequestException } from '@libs/shared';
 import { ENotFoundArticle } from '@app/learning/modules/article/domain/article.error';
-import { ListArticleDto } from '@app/learning/modules/article/dtos/ListArticle.dto';
 import { FindSingleArticleQuery } from '@app/learning/modules/article/cqrs/queries/impl/find-single-article.query';
-import { CreateArticleDto } from '@app/learning/modules/article/dtos/CreateArticle.dto';
 import { CreateArticleCommand } from '@app/learning/modules/article/cqrs/commands/impl/create-article.command';
 import { FindManyArticlesQuery } from '@app/learning/modules/article/cqrs/queries/impl/find-many-article.query';
 import {
+  CreateArticleRequest,
   CreateArticleResponse,
   GetArticleResponse,
+  ListArticleRequest,
+  ListArticleResponse,
 } from '@assets/proto/learning/learning';
 import { NotFoundRpcException } from '@libs/shared/exception/exception.grpc';
 
@@ -26,7 +23,9 @@ export class ArticlesService {
     private readonly queryBus: QueryBus,
   ) {}
 
-  async createArticle(dto: CreateArticleDto): Promise<CreateArticleResponse> {
+  async createArticle(
+    dto: CreateArticleRequest,
+  ): Promise<CreateArticleResponse> {
     const result: Result<AggregateID, Error> = await this.commandBus.execute(
       new CreateArticleCommand(dto),
     );
@@ -42,11 +41,24 @@ export class ArticlesService {
     });
   }
 
-  async findAll(listArticleDto: ListArticleDto): Promise<ArticleDocument[]> {
+  async findAll(
+    listArticleDto: ListArticleRequest,
+  ): Promise<ListArticleResponse> {
     const result: Result<ArticleDocument[], Error> =
       await this.queryBus.execute(new FindManyArticlesQuery(listArticleDto));
     return match(result, {
-      Ok: (article: ArticleDocument[]) => article,
+      Ok: (article: ArticleDocument[]) => {
+        return {
+          articles: article.map((article) => {
+            return {
+              id: article.id,
+              title: article.title,
+              content: article.content,
+              authorId: article.author,
+            };
+          }),
+        };
+      },
       Err: (error: Error) => {
         if (error instanceof ENotFoundArticle)
           throw new BadRequestException({ message: error.message });

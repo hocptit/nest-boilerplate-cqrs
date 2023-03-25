@@ -39,6 +39,22 @@ export interface CreateArticleResponse {
   id: string;
 }
 
+export interface ListArticleRequest {
+  content?: string | undefined;
+  author?: string | undefined;
+}
+
+export interface ListArticleResponse {
+  articles: ListArticleResponse_Articles[];
+}
+
+export interface ListArticleResponse_Articles {
+  id: string;
+  authorId: string;
+  content: string;
+  title: string;
+}
+
 export const LEARNING_PACKAGE_NAME = 'learning';
 
 /** Learning main Service */
@@ -97,6 +113,8 @@ export interface ArticleServiceClient {
   createArticle(
     request: CreateArticleRequest,
   ): Observable<CreateArticleResponse>;
+
+  listArticle(request: ListArticleRequest): Observable<ListArticleResponse>;
 }
 
 /** Article Service */
@@ -115,11 +133,22 @@ export interface ArticleServiceController {
     | Promise<CreateArticleResponse>
     | Observable<CreateArticleResponse>
     | CreateArticleResponse;
+
+  listArticle(
+    request: ListArticleRequest,
+  ):
+    | Promise<ListArticleResponse>
+    | Observable<ListArticleResponse>
+    | ListArticleResponse;
 }
 
 export function ArticleServiceControllerMethods() {
   return function (constructor: Function) {
-    const grpcMethods: string[] = ['getArticle', 'createArticle'];
+    const grpcMethods: string[] = [
+      'getArticle',
+      'createArticle',
+      'listArticle',
+    ];
     for (const method of grpcMethods) {
       const descriptor: any = Reflect.getOwnPropertyDescriptor(
         constructor.prototype,

@@ -7,10 +7,11 @@ import {
   GetArticleResponse,
   CreateArticleRequest,
   CreateArticleResponse,
+  ListArticleRequest,
+  ListArticleResponse,
 } from '@assets/proto/learning/learning';
 import { ClientGrpc } from '@nestjs/microservices';
-import { catchError, lastValueFrom, map } from 'rxjs';
-import { convertGrpcExceptionToHttpException } from '@libs/shared';
+import { lastValueFrom, map } from 'rxjs';
 
 @Injectable()
 export class ArticleService implements OnModuleInit {
@@ -27,12 +28,18 @@ export class ArticleService implements OnModuleInit {
     getArticleRequest: GetArticleRequest,
   ): Promise<GetArticleResponse> {
     return lastValueFrom(
-      this.articleServiceClient.getArticle(getArticleRequest).pipe(
-        map((response: GetArticleResponse) => response),
-        // catchError((error) => {
-        //   throw convertGrpcExceptionToHttpException(error);
-        // }),
-      ),
+      this.articleServiceClient
+        .getArticle(getArticleRequest)
+        .pipe(map((response: GetArticleResponse) => response)),
+    );
+  }
+  listArticle(
+    listArticleRequest: ListArticleRequest,
+  ): Promise<ListArticleResponse> {
+    return lastValueFrom(
+      this.articleServiceClient
+        .listArticle(listArticleRequest)
+        .pipe(map((response: ListArticleResponse) => response)),
     );
   }
 

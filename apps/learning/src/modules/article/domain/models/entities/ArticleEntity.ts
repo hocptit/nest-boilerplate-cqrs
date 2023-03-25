@@ -5,7 +5,7 @@ import {
   ArticleDocument,
   ArticleSchema,
 } from '@app/learning/modules/article/domain/models/schemas/Article.schema';
-import { CreateArticleDto } from '@app/learning/modules/article/dtos/CreateArticle.dto';
+import { CreateArticleRequest } from '@assets/proto/learning/learning';
 
 export class ArticleEntity extends BaseAggregateRoot<
   ArticleSchema,
@@ -14,7 +14,7 @@ export class ArticleEntity extends BaseAggregateRoot<
   constructor(id?: ObjectId, document?: ArticleDocument) {
     super(id, document);
   }
-  createdArticle(dto: CreateArticleDto) {
+  createdArticle(dto: CreateArticleRequest) {
     this.apply(new ArticleCreatedEvent(dto));
   }
 }

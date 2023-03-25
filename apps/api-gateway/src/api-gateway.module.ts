@@ -28,7 +28,8 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
         debug: config.get<string>('SENTRY_DSN_DEBUG') === 'true',
         dsn: config.get<string>('SENTRY_DSN'),
         environment:
-          config.get<string>('NODE_ENV') === 'development'
+          config.get<string>('NODE_ENV') === 'development' ||
+          config.get<string>('NODE_ENV') === 'debug'
             ? 'dev'
             : 'production',
         enabled: config.get<string>('SENTRY_DSN_ENABLED') === 'true',
@@ -55,7 +56,9 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
           filters: [
             {
               type: HttpException,
-              filter: (exception: HttpException) => 500 > exception.getStatus(),
+              filter: (exception: HttpException) => {
+                return 500 > exception.getStatus();
+              },
             },
           ],
         }),

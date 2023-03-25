@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { BaseMapper } from '@libs/shared';
 import { EventPublisher } from '@nestjs/cqrs';
 import { ArticleEntity } from '@app/learning/modules/article/domain/models/entities/ArticleEntity';
-import { ArticleResponseDto } from '@app/learning/modules/article/dtos/ArticleResponse.dto';
 import {
   ArticleDocument,
   ArticleSchema,
@@ -13,8 +12,7 @@ import {
 export class ArticleMapper extends BaseMapper<
   ArticleSchema,
   ArticleEntity,
-  ArticleDocument,
-  ArticleResponseDto
+  ArticleDocument
 > {
   constructor(protected readonly publisher: EventPublisher) {
     super(publisher);
@@ -44,12 +42,5 @@ export class ArticleMapper extends BaseMapper<
   toDomain(record: ArticleDocument): ArticleEntity {
     const entity = new ArticleEntity(record._id, record);
     return this.publisher.mergeObjectContext(entity);
-  }
-
-  toResponse(entity: ArticleEntity): ArticleResponseDto {
-    const response = new ArticleResponseDto();
-    response.id = entity.document._id;
-    response.content = entity.document.content;
-    return response;
   }
 }
