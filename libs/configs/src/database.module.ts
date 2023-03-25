@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { EEnvKey } from '@app/constants/env.constant';
+import { EEnvKey } from '@libs/configs/env.constant';
 
 @Module({
   imports: [

@@ -1,17 +1,15 @@
 import { Module } from '@nestjs/common';
-import {
-  LEARNING_PACKAGE_NAME,
-  LEARNING_SERVICE_NAME,
-} from '@assets/proto/learning/learning';
+import { LEARNING_PACKAGE_NAME } from '@assets/proto/learning/learning';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import {
   ClientGrpcProxy,
   ClientProxyFactory,
   Transport,
 } from '@nestjs/microservices';
-import { EEnvKey } from '@app/constants/env.constant';
+import { EEnvKey } from '@libs/configs/env.constant';
 import { getProtoPath } from '@libs/shared/utils';
 import { LearningService } from '@libs/grpc-client/learning/learning.service';
+import { ArticleService } from '@libs/grpc-client/learning/article.service';
 
 @Module({
   imports: [ConfigModule],
@@ -38,7 +36,8 @@ import { LearningService } from '@libs/grpc-client/learning/learning.service';
       inject: [ConfigService],
     },
     LearningService,
+    ArticleService,
   ],
-  exports: [LearningService],
+  exports: [LearningService, ArticleService],
 })
 export class LearningModule {}

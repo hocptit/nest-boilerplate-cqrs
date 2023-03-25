@@ -8,8 +8,8 @@ import {
 import { Response } from 'express';
 
 import * as exc from '@libs/shared/exception';
-import { IResponse } from '../interceptors/request-response.interceptor';
 import { LoggerService } from '@libs/shared/modules/loggers/logger.service';
+import { IResponse } from '@libs/infra/interceptors';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -21,6 +21,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     let excResponse = exception.getResponse() as IResponse<any> | any;
+    this.logger.warn(excResponse);
+    // todo: handle convert exception
     if (
       typeof excResponse !== 'object' ||
       !excResponse.hasOwnProperty('success')

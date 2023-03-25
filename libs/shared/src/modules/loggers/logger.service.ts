@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Appender, configure, getLogger, Layout, Logger } from 'log4js';
 import { ConfigService } from '@nestjs/config';
-import { EEnvKey } from '@app/constants/env.constant';
+import { EEnvKey } from '@libs/configs/env.constant';
 
 const layouts: Record<string, Layout> = {
   console: {
@@ -50,12 +50,11 @@ export class LoggerService {
    */
   constructor(private configService: ConfigService) {
     const level = configService.get(EEnvKey.LOG_LEVEL);
-    const isWriteLog = configService.get(EEnvKey.IS_WRITE_LOG) === 'true';
     configure({
       appenders: appenders,
       categories: {
         default: {
-          appenders: isWriteLog ? ['console', 'dateFile'] : ['console'],
+          appenders: ['console'],
           level: level,
           enableCallStack: true,
         },

@@ -14,10 +14,10 @@
     "incremental": true,
     "paths": {
       "@app": [
-        "apps/app-api/src"
+        "apps/api-gateway/src"
       ],
       "@app/*": [
-        "apps/app-api/src/*"
+        "apps/api-gateway/src/*"
       ],
       "@libs/shared": [
         "libs/shared/src"
@@ -44,34 +44,22 @@
         "assets/*"
       ],
       "@app/constants": [
-        "apps/app-api/src/constants"
+        "apps/api-gateway/src/constants"
       ],
       "@app/constants/*": [
-        "apps/app-api/src/constants/*"
-      ],
-      "@app/models": [
-        "apps/app-api/src/models"
-      ],
-      "@app/models/*": [
-        "apps/app-api/src/models/*"
-      ],
-      "@app/repo": [
-        "apps/app-api/src/repositories"
-      ],
-      "@app/repo/*": [
-        "apps/app-api/src/repositories/*"
+        "apps/api-gateway/src/constants/*"
       ],
       "@app/modules": [
-        "apps/app-api/src/modules"
+        "apps/api-gateway/src/modules"
       ],
       "@app/modules/*": [
-        "apps/app-api/src/modules/*"
+        "apps/api-gateway/src/modules/*"
       ],
-      "@app/grpc": [
-        "apps/grpc-internal/src"
+      "@app/learning": [
+        "apps/learning/src"
       ],
-      "@app/grpc/*": [
-        "apps/grpc-internal/src/*"
+      "@app/learning/*": [
+        "apps/learning/src/*"
       ],
       "@libs/grpc-client": [
         "libs/grpc-client/src"

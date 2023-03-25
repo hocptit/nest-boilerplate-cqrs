@@ -1,7 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-import { EEnvKey } from '@app/constants/env.constant';
+import { EEnvKey } from '@libs/configs/env.constant';
 
 export function initSwagger(app, config: ConfigService) {
   const swaggerConfig = {

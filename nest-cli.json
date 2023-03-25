@@ -1,34 +1,33 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "apps/app-api",
+  "sourceRoot": "apps/api-gateway",
   "compilerOptions": {
     "assets": [
       "**/*.proto"
     ],
     "deleteOutDir": true,
     "webpack": true,
-    "tsConfigPath": "apps/app-api/tsconfig.app.json"
+    "tsConfigPath": "apps/api-gateway/tsconfig.app.json"
   },
   "monorepo": true,
-  "root": "apps/boiler",
   "projects": {
-    "app-api": {
+    "api-gateway": {
       "type": "application",
-      "root": "apps/app-api",
+      "root": "apps/api-gateway",
       "entryFile": "main",
-      "sourceRoot": "apps/app-api/src",
+      "sourceRoot": "apps/api-gateway/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/app-api/tsconfig.app.json"
+        "tsConfigPath": "apps/api-gateway/tsconfig.app.json"
       }
     },
-    "grpc-internal": {
+    "learning": {
       "type": "application",
-      "root": "apps/grpc-internal",
+      "root": "apps/learning",
       "entryFile": "main",
-      "sourceRoot": "apps/grpc-internal/src",
+      "sourceRoot": "apps/learning/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/grpc-internal/tsconfig.app.json"
+        "tsConfigPath": "apps/learning/tsconfig.app.json"
       }
     },
     "shared": {

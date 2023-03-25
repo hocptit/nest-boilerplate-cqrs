@@ -1,6 +1,6 @@
 export interface SerializedError {
   message: string;
-  code: string;
+  errorCode: string;
   stack?: string;
   cause?: string;
   metadata?: unknown;
@@ -14,13 +14,14 @@ export interface SerializedError {
  * @extends {Error}
  */
 export abstract class BaseError extends Error {
-  abstract code: string;
+  public errorCode: string;
 
   public readonly correlationId: string;
 
   /**
    * @param {string} message
-   * @param {ObjectLiteral} [metadata={}]
+   * @param cause
+   * @param {Object} [metadata={}]
    */
   constructor(
     readonly message: string,
@@ -33,7 +34,7 @@ export abstract class BaseError extends Error {
   toJSON(): SerializedError {
     return {
       message: this.message,
-      code: this.code,
+      errorCode: this.errorCode,
       stack: this.stack,
       cause: JSON.stringify(this.cause),
       metadata: this.metadata,

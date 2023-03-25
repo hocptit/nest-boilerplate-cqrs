@@ -9,7 +9,7 @@ import { Response } from 'express';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { LoggerService } from '@libs/shared/modules/loggers/logger.service';
-import { EEnvKey } from '@app/constants/env.constant';
+import { EEnvKey } from '@libs/configs/env.constant';
 import { ConfigService } from '@nestjs/config';
 
 export const defaultResponse: IResponse<[]> = {
@@ -29,7 +29,7 @@ export interface IResponse<T> {
   message?: string | null;
   success?: boolean;
   validatorErrors?: any[];
-  requestId?: string;
+  errorCode?: string;
 }
 export function createResponse<T>(data: any): IResponse<T> {
   return {
@@ -55,29 +55,16 @@ export class ResponseTransformInterceptor<T>
     context: ExecutionContext,
     next: CallHandler,
   ): Observable<IResponse<T>> {
-    const logLevel = this.configService.get(EEnvKey.LOG_LEVEL);
-    if (logLevel === 'debug') {
+    const nodeEnv = this.configService.get(EEnvKey.NODE_ENV);
+    if (nodeEnv === 'debug') {
       const request = context.switchToHttp().getRequest();
       this.logger.info(
         request.headers,
         request.query,
         request.params,
         request.url,
+        request.body,
       );
-      //todo: optimize logger body hidden password
-      try {
-        let body = request?.body;
-        if (body && body instanceof Object) {
-          body = JSON.parse(JSON.stringify(request?.body));
-          if (body?.password) {
-            this.logger.info(`Hidden password`);
-            delete body.password;
-          }
-          this.logger.info(request.url, `Body: `, body);
-        }
-      } catch (e) {
-        throw e;
-      }
     }
     return next.handle().pipe(
       map((data) => {

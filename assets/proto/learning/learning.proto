@@ -1,9 +1,11 @@
 syntax = "proto3";
-import "google/protobuf/empty.proto";
-import "google/protobuf/any.proto";
+//import "google/protobuf/empty.proto";
+//import "google/protobuf/any.proto";
 
 package learning;
 
+
+// Learning main Service
 service LearningService {
     rpc GetLearning (GetLearningRequest) returns (GetLearningResponse) {}
 }
@@ -15,3 +17,39 @@ message GetLearningRequest {
 message GetLearningResponse {
     string message = 1;
 }
+
+// Article Service
+service ArticleService {
+    rpc GetArticle (GetArticleRequest) returns (GetArticleResponse) {}
+    rpc CreateArticle (CreateArticleRequest) returns (CreateArticleResponse) {}
+}
+
+message GetArticleRequest {
+    string id = 1;
+}
+
+message GetArticleResponse {
+    string id = 1;
+    string content = 2;
+    string title = 3;
+}
+
+
+message CreateArticleRequest {
+    string content = 2;
+    string title = 3;
+//    repeated google.protobuf.Any meta = 4;
+
+    oneof fields {
+        int32 test = 5;
+        string test2 = 6;
+    }
+//    map<string, int32> map_field = 9;
+
+}
+
+message CreateArticleResponse {
+    string id = 1;
+}
+
+// another service
