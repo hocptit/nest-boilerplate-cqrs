@@ -21,11 +21,6 @@
         "postinstall": "husky install",
         "proto:gen": "npx protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto.cmd --ts_proto_out=. ./assets/proto/learning/learning.proto --ts_proto_opt=nestJs=true"
     },
-    "engines": {
-        "node": "16.19.1",
-        "npm": "8.19.3",
-        "yarn": "1.22.19"
-    },
     "dependencies": {
         "@grpc/grpc-js": "^1.8.12",
         "@grpc/proto-loader": "^0.7.5",
