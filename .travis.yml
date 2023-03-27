@@ -1,7 +1,12 @@
-language: node_js
-node_js:
-  - "16"
+sudo: required
+
 services:
   - docker
-after_success:
-    docker run -i --rm -v $(pwd):/app/source -v $(pwd)/.prettierrc:/app/.prettierrc hocptit/eslint-ci:0.0.1 "/app/source/{src,apps,src,test}/**/*.ts";
+
+language: generic
+
+before_script:
+  - docker pull hocptit/eslint-ci:0.0.1
+
+script:
+  - docker run -i --rm -v $(pwd):/app/source -v $(pwd)/.prettierrc:/app/.prettierrc hocptit/eslint-ci:0.0.1 "/app/source/{src,apps,src,test}/**/*.ts";
