@@ -7,7 +7,7 @@ import { ENotFoundArticle } from '@modules/article/domain/article.error';
 /**
  * Base service class that provides common CQRS operations and error handling.
  * This class reduces code duplication across different domain services.
- * 
+ *
  * @abstract
  * @class BaseService
  */
@@ -15,7 +15,7 @@ import { ENotFoundArticle } from '@modules/article/domain/article.error';
 export abstract class BaseService {
   /**
    * Creates an instance of BaseService.
-   * 
+   *
    * @param {CommandBus} commandBus - NestJS CQRS command bus for executing commands
    * @param {QueryBus} queryBus - NestJS CQRS query bus for executing queries
    */
@@ -26,7 +26,7 @@ export abstract class BaseService {
 
   /**
    * Executes a command and handles the result with proper error handling.
-   * 
+   *
    * @template TResult - The type of the successful result
    * @template TError - The type of the error
    * @param {any} command - The command to execute
@@ -37,13 +37,15 @@ export abstract class BaseService {
   protected async executeCommand<TResult, TError extends Error>(
     command: any,
   ): Promise<TResult> {
-    const result: Result<TResult, TError> = await this.commandBus.execute(command);
+    const result: Result<TResult, TError> = await this.commandBus.execute(
+      command,
+    );
     return this.handleResult(result);
   }
 
   /**
    * Executes a query and handles the result with proper error handling.
-   * 
+   *
    * @template TResult - The type of the successful result
    * @template TError - The type of the error
    * @param {any} query - The query to execute
@@ -60,7 +62,7 @@ export abstract class BaseService {
 
   /**
    * Handles the Result type and converts errors to appropriate exceptions.
-   * 
+   *
    * @private
    * @template TResult - The type of the successful result
    * @template TError - The type of the error
@@ -86,7 +88,7 @@ export abstract class BaseService {
   /**
    * Determines if an error is a domain-specific error that should be converted
    * to a BadRequestException.
-   * 
+   *
    * @private
    * @param {Error} error - The error to check
    * @returns {boolean} True if the error is a domain error

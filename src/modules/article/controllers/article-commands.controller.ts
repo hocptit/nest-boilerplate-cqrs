@@ -9,7 +9,7 @@ import { BaseResponseCommand } from '../../../shared/types/response-command.base
 /**
  * Controller responsible for handling article command operations.
  * Implements CQRS pattern by separating command operations from queries.
- * 
+ *
  * @class ArticleCommandsController
  */
 @Controller(routesV1.article.root)
@@ -17,17 +17,17 @@ import { BaseResponseCommand } from '../../../shared/types/response-command.base
 export class ArticleCommandsController {
   /**
    * Creates an instance of ArticleCommandsController.
-   * 
+   *
    * @param {ArticlesService} articlesService - Service for handling article operations
    */
   constructor(private readonly articlesService: ArticlesService) {}
 
   /**
    * Creates a new article.
-   * 
+   *
    * @param {CreateArticleDto} articleDto - Data transfer object containing article creation data
    * @returns {Promise<BaseResponseCommand>} Response containing the created article ID
-   * 
+   *
    * @example
    * POST /api/articles
    * {

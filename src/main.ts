@@ -16,7 +16,7 @@ import { AppModule } from './app.module';
 /**
  * Bootstrap function that initializes and starts the NestJS application.
  * Sets up all necessary middleware, interceptors, filters, and configuration.
- * 
+ *
  * @async
  * @function bootstrap
  * @returns {Promise<void>}
@@ -24,7 +24,7 @@ import { AppModule } from './app.module';
 async function bootstrap(): Promise<void> {
   // Create NestJS application instance
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  
+
   // Get configuration and logging services
   const configService = app.get(ConfigService);
   const loggingService = app.get(LoggerService);
@@ -57,9 +57,11 @@ async function bootstrap(): Promise<void> {
   // Start the application
   const port = configService.get<number>(EEnvKey.PORT) || 3000;
   await app.listen(port);
-  
+
   logger.info(`🚀 Application is running on: ${await app.getUrl()}`);
-  logger.info(`📚 Swagger documentation available at: ${await app.getUrl()}/api-docs`);
+  logger.info(
+    `📚 Swagger documentation available at: ${await app.getUrl()}/api-docs`,
+  );
 }
 
 // Start the application and handle any bootstrap errors

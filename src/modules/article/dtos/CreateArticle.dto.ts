@@ -5,7 +5,7 @@ import { IsString, IsNotEmpty, MinLength, MaxLength } from 'class-validator';
 /**
  * Data Transfer Object for creating a new article.
  * Extends CommandDto to inherit common command properties.
- * 
+ *
  * @class CreateArticleDto
  * @extends {CommandDto}
  */
@@ -13,7 +13,7 @@ export class CreateArticleDto extends CommandDto {
   /**
    * The title of the article.
    * Must be between 1 and 200 characters.
-   * 
+   *
    * @type {string}
    * @memberof CreateArticleDto
    */
@@ -32,7 +32,7 @@ export class CreateArticleDto extends CommandDto {
   /**
    * The content of the article.
    * Must be between 10 and 10000 characters.
-   * 
+   *
    * @type {string}
    * @memberof CreateArticleDto
    */

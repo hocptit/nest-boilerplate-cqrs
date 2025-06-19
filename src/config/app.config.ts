@@ -2,7 +2,7 @@ import { registerAs } from '@nestjs/config';
 
 /**
  * Application configuration interface defining the structure of app-specific settings.
- * 
+ *
  * @interface AppConfig
  */
 export interface AppConfig {
@@ -41,31 +41,37 @@ export interface AppConfig {
 /**
  * Application configuration factory function.
  * Reads environment variables and returns a typed configuration object.
- * 
+ *
  * @returns {AppConfig} The application configuration object
  */
-export default registerAs('app', (): AppConfig => ({
-  port: parseInt(process.env.PORT, 10) || 3000,
-  apiPrefix: process.env.API_PREFIX || 'api',
-  environment: process.env.NODE_ENV || 'development',
-  corsEnabled: process.env.CORS_ENABLED !== 'false',
-  baseUrl: process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`,
-  assets: {
-    path: process.env.ASSETS_PATH || 'assets',
-    prefix: process.env.ASSETS_PREFIX || '/assets',
-  },
-  swagger: {
-    enabled: process.env.SWAGGER_ENABLED !== 'false',
-    path: process.env.SWAGGER_PATH || 'api-docs',
-    title: process.env.SWAGGER_TITLE || 'NestJS CQRS Boilerplate API',
-    description: process.env.SWAGGER_DESCRIPTION || 'A NestJS boilerplate implementing CQRS and DDD patterns',
-    version: process.env.SWAGGER_VERSION || '1.0.0',
-  },
-}));
+export default registerAs(
+  'app',
+  (): AppConfig => ({
+    port: parseInt(process.env.PORT, 10) || 3000,
+    apiPrefix: process.env.API_PREFIX || 'api',
+    environment: process.env.NODE_ENV || 'development',
+    corsEnabled: process.env.CORS_ENABLED !== 'false',
+    baseUrl:
+      process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`,
+    assets: {
+      path: process.env.ASSETS_PATH || 'assets',
+      prefix: process.env.ASSETS_PREFIX || '/assets',
+    },
+    swagger: {
+      enabled: process.env.SWAGGER_ENABLED !== 'false',
+      path: process.env.SWAGGER_PATH || 'api-docs',
+      title: process.env.SWAGGER_TITLE || 'NestJS CQRS Boilerplate API',
+      description:
+        process.env.SWAGGER_DESCRIPTION ||
+        'A NestJS boilerplate implementing CQRS and DDD patterns',
+      version: process.env.SWAGGER_VERSION || '1.0.0',
+    },
+  }),
+);
 
 /**
  * Type helper to get the app configuration from the ConfigService.
- * 
+ *
  * @example
  * const appConfig = this.configService.get<AppConfig>('app');
  */
