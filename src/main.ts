@@ -13,23 +13,59 @@ import { initSwagger } from 'infra/swagger';
 
 import { AppModule } from './app.module';
 
-async function bootstrap() {
+/**
+ * Bootstrap function that initializes and starts the NestJS application.
+ * Sets up all necessary middleware, interceptors, filters, and configuration.
+ *
+ * @async
+ * @function bootstrap
+ * @returns {Promise<void>}
+ */
+async function bootstrap(): Promise<void> {
+  // Create NestJS application instance
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  // Get configuration and logging services
   const configService = app.get(ConfigService);
   const loggingService = app.get(LoggerService);
   const logger = loggingService.getLogger('Main');
+
+  // Configure global interceptors for request/response transformation
   app.useGlobalInterceptors(
     new ResponseTransformInterceptor(loggingService, configService),
   );
+
+  // Configure global exception filters (order matters - most specific first)
   app.useGlobalFilters(new UnknownExceptionsFilter(loggingService));
   app.useGlobalFilters(new HttpExceptionFilter(loggingService));
 
+  // Configure global validation pipe for request body validation
   app.useGlobalPipes(new BodyValidationPipe());
+
+  // Set global API prefix
   app.setGlobalPrefix('api');
+
+  // Enable CORS for cross-origin requests
   app.enableCors();
+
+  // Initialize Swagger documentation
   initSwagger(app, configService);
+
+  // Serve static assets
   app.use('/assets', express.static('assets'));
-  await app.listen(configService.get<number>(EEnvKey.PORT) || 3000);
-  logger.info(`Application is running on: ${await app.getUrl()}`);
+
+  // Start the application
+  const port = configService.get<number>(EEnvKey.PORT) || 3000;
+  await app.listen(port);
+
+  logger.info(`🚀 Application is running on: ${await app.getUrl()}`);
+  logger.info(
+    `📚 Swagger documentation available at: ${await app.getUrl()}/api-docs`,
+  );
 }
-bootstrap();
+
+// Start the application and handle any bootstrap errors
+bootstrap().catch((error) => {
+  console.error('❌ Failed to start application:', error);
+  process.exit(1);
+});
