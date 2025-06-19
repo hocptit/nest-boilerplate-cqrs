@@ -4,7 +4,7 @@
 Project auto deploy in Heroku.
 
 The project applies the design pattern DDD (using CQRS). See details in the document (link above).
-
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/hocptit/nest-boilerplate-cqrs?utm_source=oss&utm_medium=github&utm_campaign=hocptit%2Fnest-boilerplate-cqrs&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 
 ## Stay in touch
 
